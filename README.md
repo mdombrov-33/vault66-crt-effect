@@ -19,7 +19,6 @@ yarn add vault66-crt-effect
 ```bash
 import React from 'react';
 import CRTEffect from 'vault66-crt-effect';
-import 'vault66-crt-effect/dist/crt-effect.css';
 
 function App() {
   return (

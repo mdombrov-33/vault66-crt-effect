@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "license": "MIT",
   "main": "dist/crt-effect.cjs.js",
