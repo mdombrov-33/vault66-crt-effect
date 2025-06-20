@@ -8,6 +8,7 @@ interface CRTEffectProps {
   scanlineColor?: string; // Color of the scanlines
   enableScanlines?: boolean; // Whether to show scanlines
   enableSweep?: boolean; // Whether to show the sweep effect
+  theme?: "green" | "amber" | "blue" | "custom";
   children: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ const CRTEffect = ({
   scanlineColor = "rgba(91, 179, 135, 0.2)",
   enableScanlines = true,
   enableSweep = true,
+  theme = "green",
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -33,6 +35,23 @@ const CRTEffect = ({
     .filter(Boolean)
     .join(" ");
 
+  let resolvedScanlineColor = scanlineColor;
+
+  if (theme !== "custom") {
+    switch (theme) {
+      case "amber":
+        resolvedScanlineColor = "rgba(255, 200, 100, 0.3)";
+        break;
+      case "blue":
+        resolvedScanlineColor = "rgba(100, 200, 255, 0.3)";
+        break;
+      case "green":
+      default:
+        resolvedScanlineColor = "rgba(91, 179, 135, 0.3)";
+        break;
+    }
+  }
+
   return (
     <div
       className={classNames}
@@ -42,7 +61,7 @@ const CRTEffect = ({
           ["--sweep-duration"]: `${sweepDuration}s`,
           ["--sweep-thickness"]: `${sweepThickness}px`,
           ["--scanline-opacity"]: scanlineOpacity,
-          ["--scanline-color"]: scanlineColor,
+          ["--scanline-color"]: resolvedScanlineColor,
         } as React.CSSProperties
       }
     >

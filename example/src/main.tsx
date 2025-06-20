@@ -9,8 +9,9 @@ function App() {
       enabled={true}
       sweepDuration={10}
       sweepThickness={10}
-      scanlineOpacity={0.2}
-      scanlineColor="rgba(80, 95, 113, 0.8)"
+      scanlineOpacity={1}
+      theme="custom"
+      scanlineColor="red"
       enableScanlines={true}
       enableSweep={true}
     >
