@@ -11,6 +11,9 @@ interface CRTEffectProps {
   theme?: "green" | "amber" | "blue" | "custom"; // Color theme for scanlines
   enableGlow?: boolean; // Enable glow effect around the container
   glowColor?: string; // Glow color if enabled (CSS color string)
+  enableEdgeGlow?: boolean;
+  edgeGlowColor?: string;
+  edgeGlowSize?: number;
   children: React.ReactNode;
 }
 
@@ -25,6 +28,9 @@ const CRTEffect = ({
   theme = "green",
   enableGlow = false,
   glowColor = "rgba(0, 255, 128, 0.3)",
+  enableEdgeGlow = false,
+  edgeGlowColor = "rgba(0, 255, 128, 0.2)",
+  edgeGlowSize = 30,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -57,6 +63,7 @@ const CRTEffect = ({
     "crt-effect-wrapper",
     enableScanlines && "scanlines-on",
     enableSweep && "sweep-on",
+    enableEdgeGlow && "edge-glow-on",
   ]
     .filter(Boolean)
     .join(" ");
@@ -72,6 +79,8 @@ const CRTEffect = ({
           ["--scanline-opacity"]: scanlineOpacity,
           ["--scanline-color-rgb"]: resolvedScanlineColorRGB,
           ["--glow-color"]: glowColor,
+          ["--edge-glow-color"]: edgeGlowColor,
+          ["--edge-glow-size"]: `${edgeGlowSize}px`,
           boxShadow: enableGlow
             ? `0 0 6px var(--glow-color), 0 0 12px var(--glow-color), 0 0 20px var(--glow-color)`
             : undefined,
