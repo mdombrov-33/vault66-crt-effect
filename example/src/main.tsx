@@ -5,7 +5,12 @@ import "./styles/crt.css";
 
 function App() {
   return (
-    <CRTEffect enabled={true} sweepDuration={10} sweepThickness={20}>
+    <CRTEffect
+      enabled={true}
+      sweepDuration={10}
+      sweepThickness={10}
+      scanlineOpacity={0.5}
+    >
       <div style={{ padding: "20px", fontSize: "24px" }}>
         Hello CRT Effect from example app!
       </div>

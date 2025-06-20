@@ -2,8 +2,9 @@ import React from "react";
 
 interface CRTEffectProps {
   enabled?: boolean;
-  sweepDuration?: number; // Duration of the CRT sweep effect
+  sweepDuration?: number; // Speed
   sweepThickness?: number; // How tall the sweep line is
+  scanlineOpacity?: number; // Opacity of horizontal scanlines
   children: React.ReactNode;
 }
 
@@ -11,6 +12,7 @@ const CRTEffect = ({
   enabled = true,
   sweepDuration = 7,
   sweepThickness = 80,
+  scanlineOpacity = 0.2,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -24,6 +26,7 @@ const CRTEffect = ({
           position: "relative",
           ["--sweep-duration"]: `${sweepDuration}s`,
           ["--sweep-thickness"]: `${sweepThickness}px`,
+          ["--scanline-opacity"]: scanlineOpacity,
         } as React.CSSProperties
       }
     >
