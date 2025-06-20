@@ -5,7 +5,7 @@ interface CRTEffectProps {
   children: React.ReactNode;
 }
 
-const CRTEffect: React.FC<CRTEffectProps> = ({ enabled = true, children }) => {
+const CRTEffect = ({ enabled = true, children }: CRTEffectProps) => {
   if (!enabled) {
     return <>{children}</>;
   }
