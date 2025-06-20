@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/crt.css";
 
 interface CRTEffectProps {
   enabled?: boolean;
