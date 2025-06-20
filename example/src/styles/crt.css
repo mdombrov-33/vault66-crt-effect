@@ -1,5 +1,5 @@
 /** Sweep Line — vertical bar that moves down the screen */
-.crt-effect-wrapper::before {
+.crt-effect-wrapper.sweep-on::before {
   content: "";
   position: fixed;
   top: -30%;
