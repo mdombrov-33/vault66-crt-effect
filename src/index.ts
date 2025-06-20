@@ -1,1 +1,2 @@
-export { default as CRTEffect } from "./components/CRTEffect";
+import CRTEffect from "./components/CRTEffect";
+export default CRTEffect;
