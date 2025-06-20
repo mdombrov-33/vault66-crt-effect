@@ -5,7 +5,7 @@
   top: -30%;
   left: 0;
   width: 100%;
-  height: var(--sweep-thickness, 80px);
+  height: var(--sweep-thickness, 10px);
   pointer-events: none;
   background: linear-gradient(
     to bottom,
@@ -30,7 +30,7 @@
   }
 }
 
-/**  Scanlines — horizontal repeating green lines overlay */
+/** Scanlines — horizontal repeating lines overlay */
 .crt-effect-wrapper.scanlines-on::after {
   content: "";
   position: fixed;
@@ -38,10 +38,18 @@
   pointer-events: none;
   background-image: repeating-linear-gradient(
     to bottom,
-    rgba(91, 179, 135, calc(var(--scanline-opacity, 0.035))) 0px,
-    var(--scanline-color, rgba(91, 179, 135, 0.2)) 2px,
-    transparent 5px,
-    transparent 3px
+    rgba(
+        var(--scanline-color-rgb, 91, 179, 135),
+        calc(var(--scanline-opacity, 0.035))
+      )
+      0px,
+    rgba(
+        var(--scanline-color-rgb, 18, 58, 39),
+        calc(var(--scanline-opacity, 0.2))
+      )
+      2px,
+    transparent 3px,
+    transparent 5px
   );
   z-index: 9998;
   mix-blend-mode: screen;
