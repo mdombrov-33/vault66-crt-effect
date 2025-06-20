@@ -14,6 +14,7 @@ interface CRTEffectProps {
   enableEdgeGlow?: boolean;
   edgeGlowColor?: string;
   edgeGlowSize?: number;
+  enableFlicker?: boolean;
   children: React.ReactNode;
 }
 
@@ -31,6 +32,7 @@ const CRTEffect = ({
   enableEdgeGlow = false,
   edgeGlowColor = "rgba(0, 255, 128, 0.2)",
   edgeGlowSize = 30,
+  enableFlicker = false,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -64,6 +66,7 @@ const CRTEffect = ({
     enableScanlines && "scanlines-on",
     enableSweep && "sweep-on",
     enableEdgeGlow && "edge-glow-on",
+    enableFlicker && "flicker-on",
   ]
     .filter(Boolean)
     .join(" ");
