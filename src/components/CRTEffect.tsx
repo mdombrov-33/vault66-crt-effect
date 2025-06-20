@@ -5,6 +5,7 @@ interface CRTEffectProps {
   sweepDuration?: number; // Speed
   sweepThickness?: number; // How tall the sweep line is
   scanlineOpacity?: number; // Opacity of horizontal scanlines
+  enableScanlines?: boolean; // Whether to show scanlines
   children: React.ReactNode;
 }
 
@@ -13,6 +14,7 @@ const CRTEffect = ({
   sweepDuration = 7,
   sweepThickness = 80,
   scanlineOpacity = 0.2,
+  enableScanlines = true,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -20,7 +22,9 @@ const CRTEffect = ({
   }
   return (
     <div
-      className="crt-effect-wrapper"
+      className={`crt-effect-wrapper ${
+        enableScanlines ? "scanlines-on" : "scanlines-off"
+      }`}
       style={
         {
           position: "relative",

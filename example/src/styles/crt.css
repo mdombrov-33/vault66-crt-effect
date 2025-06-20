@@ -31,7 +31,7 @@
 }
 
 /**  Scanlines — horizontal repeating green lines overlay */
-.crt-effect-wrapper::after {
+.crt-effect-wrapper.scanlines-on::after {
   content: "";
   position: fixed;
   inset: 0;
