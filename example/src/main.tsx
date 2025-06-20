@@ -11,10 +11,13 @@ function App() {
       sweepThickness={10}
       scanlineOpacity={0.3}
       theme="blue"
-      enableScanlines={true}
-      enableSweep={true}
+      enableScanlines={false}
+      enableSweep={false}
       enableGlow={true}
-      glowColor="rgba(173, 77, 45, 0.299)" // Custom glow color
+      glowColor="rgba(0, 132, 255, 0.625)"
+      enableEdgeGlow={true}
+      edgeGlowColor="rgba(154, 101, 31, 0.829)"
+      edgeGlowSize={100}
     >
       <div style={{ padding: "20px", fontSize: "24px" }}>
         Hello CRT Effect from example app!

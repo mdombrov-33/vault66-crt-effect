@@ -81,14 +81,19 @@ const CRTEffect = ({
           ["--glow-color"]: glowColor,
           ["--edge-glow-color"]: edgeGlowColor,
           ["--edge-glow-size"]: `${edgeGlowSize}px`,
-          boxShadow: enableGlow
-            ? `0 0 6px var(--glow-color), 0 0 12px var(--glow-color), 0 0 20px var(--glow-color)`
-            : undefined,
         } as React.CSSProperties
       }
     >
-      {children}
-      {/* CRT VISUALS HERE */}
+      <div
+        className="crt-inner"
+        style={{
+          boxShadow: enableGlow
+            ? `0 0 6px var(--glow-color), 0 0 12px var(--glow-color), 0 0 20px var(--glow-color)`
+            : undefined,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

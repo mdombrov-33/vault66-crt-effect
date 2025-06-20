@@ -54,3 +54,13 @@
   z-index: 9998;
   mix-blend-mode: screen;
 }
+
+.crt-effect-wrapper.edge-glow-on {
+  box-shadow: inset 0 0 var(--edge-glow-size, 30px)
+    var(--edge-glow-color, rgba(0, 255, 128, 0.2));
+}
+
+.crt-inner {
+  width: 100%;
+  height: 100%;
+}
