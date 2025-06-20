@@ -6,7 +6,8 @@
   "scripts": {
   "build": "vite build",
   "dev": "vite",
-  "preview": "vite preview"
+  "preview": "vite preview",
+  "dev:example": "vite --config example/vite.config.ts"
 },
   "dependencies": {
     "react": "^19.1.0",
