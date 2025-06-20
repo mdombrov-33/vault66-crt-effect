@@ -11,8 +11,8 @@ interface CRTEffectProps {
 
 const CRTEffect = ({
   enabled = true,
-  sweepDuration = 7,
-  sweepThickness = 80,
+  sweepDuration = 10,
+  sweepThickness = 10,
   scanlineOpacity = 0.2,
   enableScanlines = true,
   children,

@@ -9,8 +9,8 @@ function App() {
       enabled={true}
       sweepDuration={10}
       sweepThickness={10}
-      scanlineOpacity={0.5}
-      enableScanlines={false}
+      scanlineOpacity={0.2}
+      enableScanlines={true}
     >
       <div style={{ padding: "20px", fontSize: "24px" }}>
         Hello CRT Effect from example app!
