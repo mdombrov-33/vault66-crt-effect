@@ -1,11 +1,31 @@
 {
   "name": "vault66-crt-effect",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
+  "main": "dist/crt-effect.cjs.js",
+  "module": "dist/crt-effect.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "description": "A customizable CRT visual effect component for React",
+  "keywords": [
+    "react",
+    "crt",
+    "visual-effects",
+    "retro",
+    "scanlines",
+    "glow"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdombrov-33/vault66-crt-effect.git"
+  },
+  "author": "Maksym Dombrov",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite",
     "preview": "vite preview",
     "dev:example": "vite --config example/vite.config.ts"
