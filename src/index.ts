@@ -1,3 +1,3 @@
-import "./styles/vault66-crt-effect.css";
+import "./vault66-crt-effect.css";
 import CRTEffect from "./components/CRTEffect";
 export default CRTEffect;
