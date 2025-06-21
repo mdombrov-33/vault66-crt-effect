@@ -6,6 +6,8 @@ A customizable React component that adds nostalgic CRT-style visual effects — 
 
 ---
 
+![CRT Effect Demo](./crt.gif)
+
 ## Installation
 
 ```bash

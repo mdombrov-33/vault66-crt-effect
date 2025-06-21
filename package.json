@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "license": "MIT",
   "main": "dist/crt-effect.cjs.js",
@@ -8,7 +8,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "crt.gif"
   ],
   "description": "A customizable CRT visual effect component for React",
   "keywords": [
