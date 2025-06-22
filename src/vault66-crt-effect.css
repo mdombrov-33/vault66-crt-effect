@@ -65,6 +65,27 @@
   height: 100%;
 }
 
+.crt-effect-wrapper.sweep-soft::before {
+  content: "";
+  position: fixed;
+  top: -30%;
+  left: 0;
+  width: 100%;
+  height: var(--sweep-thickness, 10px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.08) 55%,
+    transparent 100%
+  );
+  animation: sweep-line var(--sweep-duration, 7s) linear infinite;
+  z-index: 9999;
+  filter: blur(5px);
+}
+
 /* Flicker animation — high visibility version */
 .crt-effect-wrapper.flicker-on {
   animation: crt-flicker 0.8s infinite;

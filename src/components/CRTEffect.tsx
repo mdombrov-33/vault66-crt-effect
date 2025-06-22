@@ -4,6 +4,7 @@ interface CRTEffectProps {
   enabled?: boolean;
   sweepDuration?: number; // Speed of the sweep line animation in seconds
   sweepThickness?: number; // Height (thickness) of the sweep line in px
+  sweepStyle?: "classic" | "soft"; // Style of the sweep line
   scanlineOpacity?: number; // Opacity of the scanlines (0 to 1)
   scanlineColor?: string; // Custom RGBA or RGB color string (used if theme = 'custom')
   enableScanlines?: boolean; // Show or hide scanlines overlay
@@ -22,6 +23,7 @@ const CRTEffect = ({
   enabled = true,
   sweepDuration = 10,
   sweepThickness = 10,
+  sweepStyle = "classic",
   scanlineOpacity = 0.2,
   scanlineColor = "rgba(91, 179, 135, 0.2)", // fallback if custom
   enableScanlines = true,
@@ -64,7 +66,7 @@ const CRTEffect = ({
   const classNames = [
     "crt-effect-wrapper",
     enableScanlines && "scanlines-on",
-    enableSweep && "sweep-on",
+    enableSweep && (sweepStyle === "classic" ? "sweep-on" : "sweep-soft"),
     enableEdgeGlow && "edge-glow-on",
     enableFlicker && "flicker-on",
   ]
