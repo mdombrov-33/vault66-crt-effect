@@ -1,8 +1,11 @@
 # vault66-crt-effect
+![npm](https://img.shields.io/npm/v/vault66-crt-effect?style=flat-square)
+![npm downloads](https://img.shields.io/npm/dw/vault66-crt-effect?style=flat-square)
+![npm total downloads](https://img.shields.io/npm/dt/vault66-crt-effect?style=flat-square)
 
-A customizable React component that adds nostalgic CRT-style visual effects — including scanlines, sweep animation, edge glow, and flicker — to any React app.
+Give your React app that vintage TV feel with authentic CRT effects - flickering scanlines, sweeping light bars, glowing edges, and all the retro charm you need.
 
-> **Originally developed as part of [Vault 66](https://github.com/mdombrov-33/vault-66-store),** a Fallout-themed e-commerce project. This library is extracted as a standalone package so you can easily add authentic retro CRT effects to your own projects.
+> **Originally crafted for [Vault 66](https://github.com/mdombrov-33/vault-66-store), a Fallout-themed e-commerce project,** this library is now a standalone package so you can effortlessly add authentic retro CRT effects to your own apps.
 
 ---
 
