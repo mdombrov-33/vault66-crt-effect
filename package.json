@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "module",
   "license": "MIT",
   "main": "dist/crt-effect.cjs.js",
@@ -15,10 +15,21 @@
   "keywords": [
     "react",
     "crt",
+    "crt-effect",
     "visual-effects",
     "retro",
     "scanlines",
-    "glow"
+    "glow",
+    "flicker",
+    "sweep-animation",
+    "nostalgic",
+    "vintage-ui",
+    "old-school",
+    "terminal",
+    "console",
+    "cli-ui",
+    "retro-terminal",
+    "hacker-style"
   ],
   "repository": {
     "type": "git",
