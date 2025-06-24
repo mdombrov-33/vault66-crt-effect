@@ -12,6 +12,11 @@ Give your React app that vintage TV feel with authentic CRT effects - flickering
 
 ![CRT Effect Demo](./crt.gif)
 
+## Live Demo
+
+Try the CRT effect live in this interactive [CodeSandbox demo](https://codesandbox.io/p/sandbox/brave-scott-lgp564)!  
+Experiment with scanlines, sweep, glow, flicker, and orientation in real time.
+
 ## Installation
 
 ```bash
