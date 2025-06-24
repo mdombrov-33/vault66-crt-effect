@@ -12,10 +12,11 @@ interface CRTEffectProps {
   theme?: "green" | "amber" | "blue" | "custom"; // Color theme for scanlines
   enableGlow?: boolean; // Enable glow effect around the container
   glowColor?: string; // Glow color if enabled (CSS color string)
-  enableEdgeGlow?: boolean;
-  edgeGlowColor?: string;
-  edgeGlowSize?: number;
-  enableFlicker?: boolean;
+  enableEdgeGlow?: boolean; // Enable edge glow effect around the container
+  edgeGlowColor?: string; // Edge glow color if enabled (CSS color string)
+  edgeGlowSize?: number; // Size of the edge glow in pixels
+  enableFlicker?: boolean; // Enable flicker effect on the CRT
+  scanlineOrientation?: "horizontal" | "vertical"; // Orientation of scanlines
   children: React.ReactNode;
 }
 
@@ -35,6 +36,7 @@ const CRTEffect = ({
   edgeGlowColor = "rgba(0, 255, 128, 0.2)",
   edgeGlowSize = 30,
   enableFlicker = false,
+  scanlineOrientation = "horizontal",
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -86,6 +88,8 @@ const CRTEffect = ({
           ["--glow-color"]: glowColor,
           ["--edge-glow-color"]: edgeGlowColor,
           ["--edge-glow-size"]: `${edgeGlowSize}px`,
+          ["--scanline-gradient-direction"]:
+            scanlineOrientation === "horizontal" ? "to bottom" : "to right",
         } as React.CSSProperties
       }
     >

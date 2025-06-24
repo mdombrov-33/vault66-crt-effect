@@ -1,4 +1,5 @@
 # vault66-crt-effect
+
 ![npm](https://img.shields.io/npm/v/vault66-crt-effect?style=flat-square)
 ![npm downloads](https://img.shields.io/npm/dw/vault66-crt-effect?style=flat-square)
 ![npm total downloads](https://img.shields.io/npm/dt/vault66-crt-effect?style=flat-square)
@@ -55,24 +56,25 @@ export default App;
 
 ## Props
 
-| Prop              | Type                                       | Default                     | Purpose                                                                                                  |
-| ----------------- | ------------------------------------------ | --------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `enabled`         | `boolean`                                  | `true`                      | Enables or disables the entire CRT effect                                                                |
-| `sweepDuration`   | `number`                                   | `10`                        | Duration in seconds for the vertical sweep line animation                                                |
-| `sweepThickness`  | `number`                                   | `10`                        | Height (thickness in pixels) of the sweep line                                                           |
-| `sweepStyle`      | `"classic" \| "soft"`                      | `"classic"`                 | Style of the vertical sweep line: `"classic"` is a sharp black line, `"soft"` is a blurred shadow effect |
-| `scanlineOpacity` | `number` (0 to 1)                          | `0.2`                       | Opacity of the horizontal scanlines                                                                      |
-| `scanlineColor`   | `string`                                   | `"rgba(91, 179, 135, 0.2)"` | Custom RGBA/RGB scanline color (used only if `theme` is `"custom"`)                                      |
-| `enableScanlines` | `boolean`                                  | `true`                      | Shows or hides the horizontal scanlines overlay                                                          |
-| `enableSweep`     | `boolean`                                  | `true`                      | Shows or hides the vertical sweep line animation                                                         |
-| `theme`           | `"green" \| "amber" \| "blue" \| "custom"` | `"green"`                   | Predefined scanline color themes (overrides `scanlineColor` unless `custom` is used)                     |
-| `enableGlow`      | `boolean`                                  | `false`                     | Enables outer glow effect around the container                                                           |
-| `glowColor`       | `string`                                   | `"rgba(0, 255, 128, 0.3)"`  | Color of the outer glow                                                                                  |
-| `enableEdgeGlow`  | `boolean`                                  | `false`                     | Enables inset glow effect around edges                                                                   |
-| `edgeGlowColor`   | `string`                                   | `"rgba(0, 255, 128, 0.2)"`  | Color of the inset edge glow                                                                             |
-| `edgeGlowSize`    | `number`                                   | `30`                        | Size in pixels of the inset edge glow (box-shadow inset size)                                            |
-| `enableFlicker`   | `boolean`                                  | `false`                     | Enables subtle flicker animation for CRT realism                                                         |
-| `children`        | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                        |
+| Prop                  | Type                                       | Default                     | Purpose                                                                                                                       |
+| --------------------- | ------------------------------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`             | `boolean`                                  | `true`                      | Enables or disables the entire CRT effect                                                                                     |
+| `sweepDuration`       | `number`                                   | `10`                        | Duration in seconds for the vertical sweep line animation                                                                     |
+| `sweepThickness`      | `number`                                   | `10`                        | Height (thickness in pixels) of the sweep line                                                                                |
+| `sweepStyle`          | `"classic" \| "soft"`                      | `"classic"`                 | Style of the vertical sweep line: `"classic"` is a sharp black line, `"soft"` is a blurred shadow effect                      |
+| `scanlineOpacity`     | `number` (0 to 1)                          | `0.2`                       | Opacity of the scanlines                                                                                                      |
+| `scanlineColor`       | `string`                                   | `"rgba(91, 179, 135, 0.2)"` | Custom RGBA/RGB scanline color (used only if `theme` is `"custom"`)                                                           |
+| `enableScanlines`     | `boolean`                                  | `true`                      | Shows or hides the scanlines overlay                                                                                          |
+| `scanlineOrientation` | `"horizontal" \| "vertical"`               | `"horizontal"`              | Orientation of the scanlines — `"horizontal"` renders lines from top to bottom; `"vertical"` renders lines from left to right |
+| `enableSweep`         | `boolean`                                  | `true`                      | Shows or hides the vertical sweep line animation                                                                              |
+| `theme`               | `"green" \| "amber" \| "blue" \| "custom"` | `"green"`                   | Predefined scanline color themes (overrides `scanlineColor` unless `custom` is used)                                          |
+| `enableGlow`          | `boolean`                                  | `false`                     | Enables outer glow effect around the container                                                                                |
+| `glowColor`           | `string`                                   | `"rgba(0, 255, 128, 0.3)"`  | Color of the outer glow                                                                                                       |
+| `enableEdgeGlow`      | `boolean`                                  | `false`                     | Enables inset glow effect around edges                                                                                        |
+| `edgeGlowColor`       | `string`                                   | `"rgba(0, 255, 128, 0.2)"`  | Color of the inset edge glow                                                                                                  |
+| `edgeGlowSize`        | `number`                                   | `30`                        | Size in pixels of the inset edge glow (box-shadow inset size)                                                                 |
+| `enableFlicker`       | `boolean`                                  | `false`                     | Enables subtle flicker animation for CRT realism                                                                              |
+| `children`            | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                                             |
 
 ## Customization
 
