@@ -12,23 +12,24 @@
     "crt.gif"
   ],
   "description": "A customizable CRT visual effect component for React",
-"keywords": [
-  "react",
-  "animation",
-  "effects",
-  "ui",
-  "crt-effect",
-  "retro-ui",
-  "scanlines",
-  "glow",
-  "flicker",
-  "sweep-animation",
-  "vintage-ui",
-  "terminal",
-  "console",
-  "glitch-effect",
-  "pixelated-ui"
-],
+  "keywords": [
+    "react",
+    "animation",
+    "effects",
+    "ui",
+    "crt-effect",
+    "crt",
+    "retro-ui",
+    "scanlines",
+    "glow",
+    "flicker",
+    "sweep-animation",
+    "vintage-ui",
+    "terminal",
+    "console",
+    "glitch-effect",
+    "pixelated-ui"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/mdombrov-33/vault66-crt-effect.git"
