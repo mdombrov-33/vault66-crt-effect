@@ -86,11 +86,16 @@ export default App;
 
 ## Customization
 
-- Use the `theme` prop to quickly switch between predefined scanline color palettes: `"green"`, `"amber"`, or `"blue"`
-- For full control over scanline color, set `theme="custom"` and provide your own `scanlineColor` as any valid CSS color string
-- Adjust the speed of the sweep animation using `sweepDuration` (in seconds)
-- Control glow intensity and colors via `enableGlow`, `glowColor`, `enableEdgeGlow`, `edgeGlowColor`, and `edgeGlowSize`
-- Add subtle flicker for realism with `enableFlicker`
+- Use the `theme` prop to quickly switch between predefined scanline color palettes: `"green"`, `"amber"`, or `"blue"`.
+- For full control over scanline color, set `theme="custom"` and provide your own `scanlineColor` as any valid CSS color string.
+- Adjust the opacity and orientation of the scanlines with `scanlineOpacity` and `scanlineOrientation`.
+- Toggle scanlines on or off with `enableScanlines`.
+- Adjust the speed and thickness of the vertical sweep line animation using `sweepDuration` (in seconds) and `sweepThickness` (in pixels).
+- Choose between sharp or soft sweep styles with `sweepStyle` (`"classic"` or `"soft"`).
+- Control glow intensity and colors via `enableGlow`, `glowColor`, `enableEdgeGlow`, `edgeGlowColor`, and `edgeGlowSize`.
+- Add subtle flicker for realism with `enableFlicker`, and adjust its speed and intensity with `flickerIntensity` (`"low"`, `"medium"`, or `"high"`).
+- Enable retro glitch effects with `glitchMode`, and control glitch speed and intensity with `glitchIntensity` (`"low"`, `"medium"`, or `"high"`).
+- Enable or disable the entire CRT effect with the `enabled` prop.
 
 ## License
 
