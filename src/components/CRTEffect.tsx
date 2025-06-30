@@ -17,6 +17,8 @@ interface CRTEffectProps {
   edgeGlowSize?: number; // Size of the edge glow in pixels
   enableFlicker?: boolean; // Enable flicker effect on the CRT
   scanlineOrientation?: "horizontal" | "vertical"; // Orientation of scanlines
+  glitchMode?: boolean; // Enable glitch effect on the CRT
+  glitchIntensity?: "low" | "medium" | "high"; // Intensity of the glitch effect
   children: React.ReactNode;
 }
 
@@ -37,6 +39,8 @@ const CRTEffect = ({
   edgeGlowSize = 30,
   enableFlicker = false,
   scanlineOrientation = "horizontal",
+  glitchIntensity = "medium",
+  glitchMode = false,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -75,6 +79,12 @@ const CRTEffect = ({
     .filter(Boolean)
     .join(" ");
 
+  const glitchSpeedMap = {
+    low: "1s",
+    medium: "0.6s",
+    high: "0.3s",
+  };
+
   return (
     <div
       className={classNames}
@@ -90,11 +100,12 @@ const CRTEffect = ({
           ["--edge-glow-size"]: `${edgeGlowSize}px`,
           ["--scanline-gradient-direction"]:
             scanlineOrientation === "horizontal" ? "to bottom" : "to right",
+          ["--glitch-speed"]: glitchSpeedMap[glitchIntensity ?? "medium"],
         } as React.CSSProperties
       }
     >
       <div
-        className="crt-inner"
+        className={["crt-inner", glitchMode ? "glitch-on" : ""].join(" ")}
         style={{
           boxShadow: enableGlow
             ? `0 0 6px var(--glow-color), 0 0 12px var(--glow-color), 0 0 20px var(--glow-color)`
