@@ -17,12 +17,13 @@ function App() {
       glitchIntensity="low"
       glowColor="rgba(172, 83, 145, 0.3)"
       scanlineOrientation="vertical"
-      glitchMode={true}
+      glitchMode={false}
+      flickerIntensity="low"
       enableEdgeGlow={true}
       edgeGlowColor="rgba(4, 12, 9, 0.9)"
-      scanlineColor="rgba(32, 34, 27, 0.637)"
+      scanlineColor="rgba(146, 39, 196, 0.726)"
       edgeGlowSize={50}
-      enableFlicker={false}
+      enableFlicker={true}
       sweepStyle="soft"
     >
       <div style={{ padding: "20px", fontSize: "24px" }}>Hello CRT Effect!</div>

@@ -16,6 +16,7 @@ interface CRTEffectProps {
   edgeGlowColor?: string; // Edge glow color if enabled (CSS color string)
   edgeGlowSize?: number; // Size of the edge glow in pixels
   enableFlicker?: boolean; // Enable flicker effect on the CRT
+  flickerIntensity?: "low" | "medium" | "high"; // Intensity of the flicker effect
   scanlineOrientation?: "horizontal" | "vertical"; // Orientation of scanlines
   glitchMode?: boolean; // Enable glitch effect on the CRT
   glitchIntensity?: "low" | "medium" | "high"; // Intensity of the glitch effect
@@ -40,6 +41,7 @@ const CRTEffect = ({
   enableFlicker = false,
   scanlineOrientation = "horizontal",
   glitchIntensity = "medium",
+  flickerIntensity = "medium",
   glitchMode = false,
   children,
 }: CRTEffectProps) => {
@@ -85,6 +87,12 @@ const CRTEffect = ({
     high: "0.3s",
   };
 
+  const flickerSpeedMap = {
+    low: "1.5s",
+    medium: "0.8s",
+    high: "0.4s",
+  };
+
   return (
     <div
       className={classNames}
@@ -101,6 +109,7 @@ const CRTEffect = ({
           ["--scanline-gradient-direction"]:
             scanlineOrientation === "horizontal" ? "to bottom" : "to right",
           ["--glitch-speed"]: glitchSpeedMap[glitchIntensity ?? "medium"],
+          ["--flicker-speed"]: flickerSpeedMap[flickerIntensity ?? "medium"],
         } as React.CSSProperties
       }
     >
