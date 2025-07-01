@@ -142,3 +142,27 @@
     transform: translate(0, 0) skew(0deg, 0deg);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  /** Disable sweep animation */
+  .crt-effect-wrapper.sweep-on::before,
+  .crt-effect-wrapper.sweep-soft::before {
+    animation: none !important;
+    display: none; /* Or just hide it completely */
+  }
+
+  /** Disable flicker animation */
+  .crt-effect-wrapper.flicker-on {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  /** Disable glitch animation */
+  .crt-inner.glitch-on {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /** Keep static effects like scanlines, glow etc. */
+  /** These don't move so they're fine for reduced motion */
+}
