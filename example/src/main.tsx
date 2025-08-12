@@ -7,11 +7,11 @@ function App() {
     <CRTEffect
       enabled={true}
       theme="custom"
-      scanlineColor="rgba(8, 46, 8, 0.4)"
+      scanlineColor="rgba(44, 90, 44, 0.4)"
       scanlineOpacity={1}
-      scanlineOrientation="vertical"
-      scanlineGap={5}
-      scanlineThickness={1}
+      scanlineOrientation="horizontal"
+      scanlineGap={3}
+      scanlineThickness={2}
       enableScanlines={true}
       enableSweep={false}
       enableGlow={false}
