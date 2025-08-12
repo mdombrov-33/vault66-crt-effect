@@ -47,9 +47,9 @@
         var(--scanline-color-rgb, 18, 58, 39),
         calc(var(--scanline-opacity, 0.2))
       )
-      2px,
-    transparent 3px,
-    transparent 5px
+      var(--scanline-thickness, 2px),
+    transparent var(--scanline-thickness, 2px),
+    transparent calc(var(--scanline-thickness, 2px) + var(--scanline-gap, 3px))
   );
   z-index: 9998;
   mix-blend-mode: screen;

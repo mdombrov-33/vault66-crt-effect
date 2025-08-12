@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import CRTEffect from "../../dist/crt-effect.es.js";
 import "../../src/vault66-crt-effect.css";
@@ -7,26 +6,36 @@ function App() {
   return (
     <CRTEffect
       enabled={true}
-      sweepDuration={10}
-      sweepThickness={60}
-      scanlineOpacity={0.3}
       theme="custom"
-      enableScanlines={true}
-      enableSweep={true}
-      enableGlow={false}
-      glitchIntensity="low"
-      glowColor="rgba(172, 83, 145, 0.3)"
+      scanlineColor="rgba(8, 46, 8, 0.4)"
+      scanlineOpacity={1}
       scanlineOrientation="vertical"
+      scanlineGap={5}
+      scanlineThickness={1}
+      enableScanlines={true}
+      enableSweep={false}
+      enableGlow={false}
+      enableEdgeGlow={false}
+      enableFlicker={false}
       glitchMode={false}
-      flickerIntensity="low"
-      enableEdgeGlow={true}
-      edgeGlowColor="rgba(4, 12, 9, 0.9)"
-      scanlineColor="rgba(146, 39, 196, 0.726)"
-      edgeGlowSize={50}
-      enableFlicker={true}
-      sweepStyle="soft"
     >
-      <div style={{ padding: "20px", fontSize: "24px" }}>Hello CRT Effect!</div>
+      <div
+        style={{
+          backgroundColor: "#222",
+          width: "600px",
+          height: "300px",
+          margin: "0 auto",
+          color: "lime",
+          fontSize: "2rem",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "10px",
+          position: "relative",
+        }}
+      >
+        Vertical Scanline Test
+      </div>
     </CRTEffect>
   );
 }

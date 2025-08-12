@@ -7,6 +7,8 @@ interface CRTEffectProps {
   sweepStyle?: "classic" | "soft"; // Style of the sweep line
   scanlineOpacity?: number; // Opacity of the scanlines (0 to 1)
   scanlineColor?: string; // Custom RGBA or RGB color string (used if theme = 'custom')
+  scanlineThickness?: number; // Thickness of each scanline in pixels
+  scanlineGap?: number; // Gap between scanlines in pixels
   enableScanlines?: boolean; // Show or hide scanlines overlay
   enableSweep?: boolean; // Show or hide sweep line animation
   theme?: "green" | "amber" | "blue" | "custom"; // Color theme for scanlines
@@ -30,6 +32,8 @@ const CRTEffect = ({
   sweepStyle = "classic",
   scanlineOpacity = 0.2,
   scanlineColor = "rgba(91, 179, 135, 0.2)", // fallback if custom
+  scanlineThickness = 1,
+  scanlineGap = 2,
   enableScanlines = true,
   enableSweep = true,
   theme = "green",
@@ -103,6 +107,8 @@ const CRTEffect = ({
           ["--sweep-thickness"]: `${sweepThickness}px`,
           ["--scanline-opacity"]: scanlineOpacity,
           ["--scanline-color-rgb"]: resolvedScanlineColorRGB,
+          ["--scanline-thickness"]: `${scanlineThickness}px`,
+          ["--scanline-gap"]: `${scanlineGap}px`,
           ["--glow-color"]: glowColor,
           ["--edge-glow-color"]: edgeGlowColor,
           ["--edge-glow-size"]: `${edgeGlowSize}px`,
