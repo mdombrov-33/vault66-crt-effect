@@ -85,7 +85,7 @@ export default App;
 | `glitchMode`          | `boolean`                                  | `false`                     | Enables shaking/interference glitch animation                                                                                |
 | `glitchIntensity`     | `"low" \| "medium" \| "high"`              | `"medium"`                  | Controls glitch animation speed and intensity                                                                                |
 | `enableVignette`      | `boolean`                                  | `false`                     | Enables a subtle edge-darkening vignette overlay                                                                             |
-| `vignetteIntensity`   | `number` (0 to 1)                          | `0.4`                       | Controls vignette darkness at the edges                                            |
+| `vignetteIntensity`   | `number` (0 to 1)                          | `0.4`                       | Controls vignette darkness at the edges                                                                                      |
 | `children`            | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                                            |
 
 ## Customization
@@ -100,7 +100,6 @@ export default App;
 - Add subtle flicker for realism with `enableFlicker`, and adjust its speed and intensity with `flickerIntensity` (`"low"`, `"medium"`, or `"high"`)
 - Enable retro glitch effects with `glitchMode`, and control glitch speed and intensity with `glitchIntensity` (`"low"`, `"medium"`, or `"high"`)
 - Enable or disable the entire CRT effect with the `enabled` prop
-- Add a subtle vintage feel with `enableVignette` and tune darkness with `vignetteIntensity`
 
 ## Reduced Motion Support
 
