@@ -18,6 +18,8 @@ function App() {
       enableEdgeGlow={false}
       enableFlicker={false}
       glitchMode={false}
+      enableVignette={true}
+      vignetteIntensity={0.5}
     >
       <div
         style={{

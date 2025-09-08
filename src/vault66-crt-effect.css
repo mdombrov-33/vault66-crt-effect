@@ -166,3 +166,17 @@
   /** Keep static effects like scanlines, glow etc. */
   /** These don't move so they're fine for reduced motion */
 }
+
+/** Vignette — subtle darkening at edges */
+.crt-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, var(--vignette-intensity, 0.4)) 100%
+  );
+  mix-blend-mode: multiply;
+  z-index: 9997;
+}

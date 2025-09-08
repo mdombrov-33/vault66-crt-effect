@@ -23,6 +23,9 @@ interface CRTEffectProps {
   glitchMode?: boolean; // Enable glitch effect on the CRT
   glitchIntensity?: "low" | "medium" | "high"; // Intensity of the glitch effect
   children: React.ReactNode;
+  // Vignette
+  enableVignette?: boolean; // Enable vignette overlay
+  vignetteIntensity?: number; // 0 to 1, darkness at edges
 }
 
 const CRTEffect = ({
@@ -47,6 +50,8 @@ const CRTEffect = ({
   glitchIntensity = "medium",
   flickerIntensity = "medium",
   glitchMode = false,
+  enableVignette = false,
+  vignetteIntensity = 0.4,
   children,
 }: CRTEffectProps) => {
   if (!enabled) {
@@ -116,6 +121,7 @@ const CRTEffect = ({
             scanlineOrientation === "horizontal" ? "to bottom" : "to right",
           ["--glitch-speed"]: glitchSpeedMap[glitchIntensity ?? "medium"],
           ["--flicker-speed"]: flickerSpeedMap[flickerIntensity ?? "medium"],
+          ["--vignette-intensity"]: vignetteIntensity,
         } as React.CSSProperties
       }
     >
@@ -129,6 +135,7 @@ const CRTEffect = ({
       >
         {children}
       </div>
+      {enableVignette && <div className="crt-vignette" />}
     </div>
   );
 };
