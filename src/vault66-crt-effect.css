@@ -1,70 +1,29 @@
-/** Sweep Line — vertical bar that moves down the screen */
+/*! SWEEP LINE EFFECTS*/
+
+/** Sweep Line - vertical bar that moves down the screen (classic style) */
 .crt-effect-wrapper.sweep-on::before {
   content: "";
-  position: fixed;
-  top: -30%;
+  position: fixed; /* Fixed positioning to cover entire viewport */
+  top: -30%; /* Start above screen for smooth entry */
   left: 0;
-  width: 100%;
-  height: var(--sweep-thickness, 10px);
-  pointer-events: none;
+  width: 100%; /* Full width sweep */
+  height: var(--sweep-thickness, 10px); /* Configurable thickness */
+  pointer-events: none; /* Don't interfere with user interactions */
+  /* Dark gradient simulating electron beam refresh line */
   background: linear-gradient(
     to bottom,
     transparent 0%,
     rgba(0, 0, 0, 0.4) 40%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(8, 8, 8, 0.5) 50%,
-    transparent 100%
+    /* Fade in */ rgba(0, 0, 0, 0.6) 50%,
+    /* Peak darkness */ rgba(8, 8, 8, 0.5) 50%,
+    /* Slight color variation */ transparent 100% /* Fade out */
   );
   animation: sweep-line var(--sweep-duration, 7s) linear infinite;
-  z-index: 9999;
-  filter: blur(1.5px);
+  z-index: 9999; /* Above all other content */
+  filter: blur(1.5px); /* Slight blur for realism */
 }
 
-/** Sweep Animation — moves the line from top to bottom */
-@keyframes sweep-line {
-  0% {
-    top: -30%;
-  }
-  100% {
-    top: 130%;
-  }
-}
-
-/** Scanlines — horizontal repeating lines overlay */
-.crt-effect-wrapper.scanlines-on::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: repeating-linear-gradient(
-    var(--scanline-gradient-direction, to bottom),
-    rgba(
-        var(--scanline-color-rgb, 91, 179, 135),
-        calc(var(--scanline-opacity, 0.035))
-      )
-      0px,
-    rgba(
-        var(--scanline-color-rgb, 18, 58, 39),
-        calc(var(--scanline-opacity, 0.2))
-      )
-      var(--scanline-thickness, 2px),
-    transparent var(--scanline-thickness, 2px),
-    transparent calc(var(--scanline-thickness, 2px) + var(--scanline-gap, 3px))
-  );
-  z-index: 9998;
-  mix-blend-mode: screen;
-}
-
-.crt-effect-wrapper.edge-glow-on {
-  box-shadow: inset 0 0 var(--edge-glow-size, 30px)
-    var(--edge-glow-color, rgba(0, 255, 128, 0.2));
-}
-
-.crt-inner {
-  width: 100%;
-  height: 100%;
-}
-
+/** Sweep Line - softer, more subtle version */
 .crt-effect-wrapper.sweep-soft::before {
   content: "";
   position: fixed;
@@ -73,110 +32,183 @@
   width: 100%;
   height: var(--sweep-thickness, 10px);
   pointer-events: none;
+  /* Lighter gradient for subtle effect */
   background: linear-gradient(
     to bottom,
     transparent 0%,
     rgba(0, 0, 0, 0.15) 40%,
-    rgba(0, 0, 0, 0.1) 50%,
+    /* Much lighter than classic */ rgba(0, 0, 0, 0.1) 50%,
     rgba(0, 0, 0, 0.08) 55%,
     transparent 100%
   );
   animation: sweep-line var(--sweep-duration, 7s) linear infinite;
   z-index: 9999;
-  filter: blur(5px);
+  filter: blur(5px); /* More blur for softer appearance */
 }
 
+/** Sweep Animation - moves the line from top to bottom of screen */
+@keyframes sweep-line {
+  0% {
+    top: -30%; /* Start above viewport */
+  }
+  100% {
+    top: 130%; /* End below viewport for complete sweep */
+  }
+}
+
+/*! SCANLINES EFFECT */
+
+/** Scanlines - horizontal repeating lines overlay that mimics CRT display */
+.crt-effect-wrapper.scanlines-on::after {
+  content: "";
+  position: fixed; /* Cover entire viewport */
+  inset: 0; /* Shorthand for top: 0, right: 0, bottom: 0, left: 0 */
+  pointer-events: none;
+  /* Repeating gradient creates horizontal line pattern */
+  background-image: repeating-linear-gradient(
+    var(--scanline-gradient-direction, to bottom),
+    /* Allow vertical/horizontal orientation */
+      /* First color stop - lighter scanline */
+      rgba(
+        var(--scanline-color-rgb, 91, 179, 135),
+        /* Default green CRT color */ calc(var(--scanline-opacity, 0.035))
+          /* Very subtle opacity */
+      )
+      0px,
+    /* Second color stop - darker scanline */
+      rgba(
+        var(--scanline-color-rgb, 18, 58, 39),
+        /* Darker variant of scanline color */
+          calc(var(--scanline-opacity, 0.2)) /* More visible opacity */
+      )
+      var(--scanline-thickness, 2px),
+    /* How thick each scanline is */ /* Transparent gap between scanlines */
+      transparent var(--scanline-thickness, 2px),
+    transparent calc(var(--scanline-thickness, 2px) + var(--scanline-gap, 3px))
+  );
+  z-index: 9998; /* Below sweep line, above content */
+  mix-blend-mode: screen; /* Blend mode for authentic CRT look */
+}
+
+/*! GLOW EFFECTS */
+
+/** Edge Glow - inward glow around screen edges */
+.crt-effect-wrapper.edge-glow-on {
+  /* Inset box-shadow creates inner glow effect */
+  box-shadow: inset 0 0 var(--edge-glow-size, 30px)
+    var(--edge-glow-color, rgba(0, 255, 128, 0.2));
+}
+
+/** Vignette - subtle darkening at edges for depth */
+.crt-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0; /* Fill parent container */
+  /* Radial gradient from center outward */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 60%,
+    /* Transparent center */ rgba(0, 0, 0, var(--vignette-intensity, 0.4)) 100%
+      /* Dark edges */
+  );
+  mix-blend-mode: multiply; /* Darkens underlying content */
+  z-index: 9997; /* Below scanlines and sweep */
+}
+
+/*! CONTAINER ELEMENTS */
+
+/** Main inner container for CRT content */
+.crt-inner {
+  width: 100%;
+  height: 100%;
+}
+
+/*! ANIMATION EFFECTS */
+
+/** Flicker Effect - simulates unstable CRT power/brightness */
 .crt-effect-wrapper.flicker-on {
   animation: crt-flicker var(--flicker-speed, 0.8s) infinite;
 }
 
+/** Flicker Animation - random opacity changes to simulate power fluctuation */
 @keyframes crt-flicker {
   0%,
   60%,
   90%,
   100% {
-    opacity: 1;
+    opacity: 1; /* Full brightness */
   }
   10% {
-    opacity: 0.96;
+    opacity: 0.96; /* Slight dim */
   }
   20% {
-    opacity: 0.99;
+    opacity: 0.99; /* Almost full */
   }
   30% {
-    opacity: 0.97;
+    opacity: 0.97; /* Medium dim */
   }
   40% {
-    opacity: 0.98;
+    opacity: 0.98; /* Slight dim */
   }
   50% {
-    opacity: 0.97;
+    opacity: 0.97; /* Medium dim */
   }
   70% {
-    opacity: 0.95;
+    opacity: 0.95; /* Most noticeable dim */
   }
   80% {
-    opacity: 0.98;
+    opacity: 0.98; /* Back to almost full */
   }
 }
 
+/** Glitch Effect - applies to inner content for interference simulation */
 .crt-inner.glitch-on {
   animation: glitch-fuzz var(--glitch-speed, 0.6s) steps(2, end) infinite;
-  will-change: transform;
+  will-change: transform; /* Optimize for frequent transform changes */
 }
 
+/** Glitch Animation - random position/skew changes simulating signal interference */
 @keyframes glitch-fuzz {
   0% {
-    transform: translate(0, 0) skew(0deg, 0deg);
+    transform: translate(0, 0) skew(0deg, 0deg); /* Normal position */
   }
   25% {
-    transform: translate(-4px, 2px) skew(-1deg, 1deg);
+    transform: translate(-4px, 2px) skew(-1deg, 1deg); /* Shift left/up with skew */
   }
   50% {
-    transform: translate(3px, -2px) skew(1deg, -1deg);
+    transform: translate(3px, -2px) skew(1deg, -1deg); /* Shift right/down with opposite skew */
   }
   75% {
-    transform: translate(-2px, 2px) skew(-0.5deg, 0.5deg);
+    transform: translate(-2px, 2px) skew(-0.5deg, 0.5deg); /* Smaller shift and skew */
   }
   100% {
-    transform: translate(0, 0) skew(0deg, 0deg);
+    transform: translate(0, 0) skew(0deg, 0deg); /* Back to normal */
   }
 }
 
+/*! ACCESSIBILITY */
+
+/** Respect user's reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  /** Disable sweep animation */
+  /** Disable sweep animation for motion sensitivity */
   .crt-effect-wrapper.sweep-on::before,
   .crt-effect-wrapper.sweep-soft::before {
     animation: none !important;
-    display: none; /* Or just hide it completely */
+    display: none; /* Hide completely since it's purely motion-based */
   }
 
-  /** Disable flicker animation */
+  /** Disable flicker animation but keep static appearance */
   .crt-effect-wrapper.flicker-on {
     animation: none !important;
-    opacity: 1 !important;
+    opacity: 1 !important; /* Ensure full opacity */
   }
 
-  /** Disable glitch animation */
+  /** Disable glitch animation but keep content visible */
   .crt-inner.glitch-on {
     animation: none !important;
-    transform: none !important;
+    transform: none !important; /* Reset to normal positioning */
   }
 
   /** Keep static effects like scanlines, glow etc. */
-  /** These don't move so they're fine for reduced motion */
-}
-
-/** Vignette — subtle darkening at edges */
-.crt-vignette {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0) 60%,
-    rgba(0, 0, 0, var(--vignette-intensity, 0.4)) 100%
-  );
-  mix-blend-mode: multiply;
-  z-index: 9997;
+  /** These don't move so they're safe for reduced motion users */
 }
