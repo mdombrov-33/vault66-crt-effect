@@ -92,9 +92,11 @@ Or customize everything manually:
 | `edgeGlowColor`       | `string`                                   | `"rgba(0, 255, 128, 0.2)"`  | Color of the inset edge glow                                                                                                 |
 | `edgeGlowSize`        | `number`                                   | `30`                        | Size in pixels of the inset edge glow (box-shadow inset size)                                                                |
 | `enableFlicker`       | `boolean`                                  | `false`                     | Enables subtle flicker animation for CRT realism                                                                             |
-| `flickerIntensity`    | `"low" \| "medium" \| "high"`              | `"medium"`                  | Controls flicker animation speed and intensity                                                                               |
-| `glitchMode`          | `boolean`                                  | `false`                     | Enables shaking/interference glitch animation                                                                                |
-| `glitchIntensity`     | `"low" \| "medium" \| "high"`              | `"medium"`                  | Controls glitch animation speed and intensity                                                                                |
+| `flickerIntensity`    | `"low" \| "medium" \| "high" \| number`    | `0.08`                      | Flicker depth: preset string or custom number (0-1) where 0=no flicker, 1=max brightness variance                           |
+| `flickerSpeed`        | `"low" \| "medium" \| "high" \| number`    | `0.8`                       | Flicker animation speed: preset string or custom number in seconds. Lower values = faster flicker                            |
+| `enableGlitch`        | `boolean`                                  | `false`                     | Enables shaking/interference glitch animation                                                                                |
+| `glitchIntensity`     | `"low" \| "medium" \| "high" \| number`    | `0.6`                       | Glitch distance: preset string or custom number (0-1) where 0=no movement, 1=max shake amount                                |
+| `glitchSpeed`         | `"low" \| "medium" \| "high" \| number`    | `0.6`                       | Glitch animation speed: preset string or custom number in seconds. Lower values = faster glitch                              |
 | `enableVignette`      | `boolean`                                  | `false`                     | Enables a subtle edge-darkening vignette overlay                                                                             |
 | `vignetteIntensity`   | `number` (0 to 1)                          | `0.4`                       | Controls vignette darkness at the edges                                                                                      |
 | `children`            | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                                            |
@@ -143,17 +145,38 @@ Barely-there CRT effect for modern UIs. Subtle scanlines and light vignette only
 
 ## Customization
 
-- Use the `preset` prop for instant authentic CRT looks, or start from scratch with individual props
-- Use the `theme` prop to quickly switch between predefined scanline color palettes: `"green"`, `"amber"`, or `"blue"`
-- For full control over scanline color, set `theme="custom"` and provide your own `scanlineColor` as any valid CSS color string
-- Adjust the opacity and orientation of the scanlines with `scanlineOpacity` and `scanlineOrientation`
-- Toggle scanlines on or off with `enableScanlines`
-- Adjust the speed and thickness of the vertical sweep line animation using `sweepDuration` (in seconds) and `sweepThickness` (in pixels)
-- Choose between sharp or soft sweep styles with `sweepStyle` (`"classic"` or `"soft"`)
-- Control glow intensity and colors via `enableGlow`, `glowColor`, `enableEdgeGlow`, `edgeGlowColor`, and `edgeGlowSize`
-- Add subtle flicker for realism with `enableFlicker`, and adjust its speed and intensity with `flickerIntensity` (`"low"`, `"medium"`, or `"high"`)
-- Enable retro glitch effects with `glitchMode`, and control glitch speed and intensity with `glitchIntensity` (`"low"`, `"medium"`, or `"high"`)
-- Enable or disable the entire CRT effect with the `enabled` prop
+Start with a preset and override specific values, or build from scratch with individual props. See the [Props](#props) table above for the complete list of available options.
+
+**Quick customization patterns:**
+
+```jsx
+// Start with a preset, tweak a few values
+<CRTEffect preset="fallout" sweepDuration={5} enableFlicker={false}>
+  <YourContent />
+</CRTEffect>
+
+// Custom scanline colors and orientation
+<CRTEffect theme="custom" scanlineColor="rgba(255, 100, 0, 0.3)" scanlineOrientation="vertical">
+  <YourContent />
+</CRTEffect>
+
+// Fine-tune flicker and glitch with numeric precision
+<CRTEffect
+  enableFlicker
+  flickerIntensity={0.05}  // Subtle brightness variance (0-1)
+  flickerSpeed={2}         // Slow flicker (seconds)
+  enableGlitch
+  glitchIntensity={0.3}    // Gentle shake (0-1)
+  glitchSpeed={1.5}        // Medium speed (seconds)
+>
+  <YourContent />
+</CRTEffect>
+
+// Or use preset strings for quick adjustments
+<CRTEffect enableFlicker flickerIntensity="low" enableGlitch glitchIntensity="high">
+  <YourContent />
+</CRTEffect>
+```
 
 ## Reduced Motion Support
 

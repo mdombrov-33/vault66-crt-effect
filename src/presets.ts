@@ -21,12 +21,14 @@ export interface PresetConfig {
   enableEdgeGlow?: boolean;
   enableFlicker?: boolean;
   enableVignette?: boolean;
-  glitchMode?: boolean;
+  enableGlitch?: boolean;
   glowColor?: string;
   edgeGlowColor?: string;
   edgeGlowSize?: number;
-  flickerIntensity?: "low" | "medium" | "high";
-  glitchIntensity?: "low" | "medium" | "high";
+  flickerIntensity?: "low" | "medium" | "high" | number;
+  flickerSpeed?: "low" | "medium" | "high" | number;
+  glitchIntensity?: "low" | "medium" | "high" | number;
+  glitchSpeed?: "low" | "medium" | "high" | number;
   vignetteIntensity?: number;
   scanlineColor?: string;
 }
@@ -60,10 +62,11 @@ export const presets: Record<PresetName, PresetConfig> = {
     edgeGlowColor: "rgba(91, 179, 135, 0.5)",
     edgeGlowSize: 40,
     enableFlicker: true,
-    flickerIntensity: "low",
+    flickerIntensity: 0.05,
+    flickerSpeed: 1.5,
     enableVignette: true,
     vignetteIntensity: 0.3,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -82,7 +85,7 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableFlicker: false,
     enableVignette: true,
     vignetteIntensity: 0.25,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -105,11 +108,13 @@ export const presets: Record<PresetName, PresetConfig> = {
     edgeGlowColor: "rgba(200, 0, 255, 0.6)",
     edgeGlowSize: 50,
     enableFlicker: true,
-    flickerIntensity: "medium",
+    flickerIntensity: 0.08,
+    flickerSpeed: 0.8,
     enableVignette: true,
     vignetteIntensity: 0.4,
-    glitchMode: true,
-    glitchIntensity: "low",
+    enableGlitch: true,
+    glitchIntensity: 0.3,
+    glitchSpeed: 1.0,
   },
 
   /**
@@ -129,10 +134,11 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableGlow: false,
     enableEdgeGlow: false,
     enableFlicker: true,
-    flickerIntensity: "low",
+    flickerIntensity: 0.05,
+    flickerSpeed: 1.5,
     enableVignette: true,
     vignetteIntensity: 0.35,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -151,7 +157,7 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableFlicker: false,
     enableVignette: true,
     vignetteIntensity: 0.2,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -174,10 +180,11 @@ export const presets: Record<PresetName, PresetConfig> = {
     edgeGlowColor: "rgba(0, 255, 100, 0.6)",
     edgeGlowSize: 45,
     enableFlicker: true,
-    flickerIntensity: "medium",
+    flickerIntensity: 0.08,
+    flickerSpeed: 0.8,
     enableVignette: true,
     vignetteIntensity: 0.45,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -196,7 +203,7 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableFlicker: false,
     enableVignette: true,
     vignetteIntensity: 0.15,
-    glitchMode: false,
+    enableGlitch: false,
   },
 
   /**
@@ -214,6 +221,6 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableFlicker: false,
     enableVignette: true,
     vignetteIntensity: 0.2,
-    glitchMode: false,
+    enableGlitch: false,
   },
 };

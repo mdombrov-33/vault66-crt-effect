@@ -25,15 +25,17 @@ interface CRTEffectProps {
   enableEdgeGlow?: boolean; // Enable inner edge glow effect around the container
   enableFlicker?: boolean; // Enable flicker effect on the CRT
   enableVignette?: boolean; // Enable vignette overlay
-  glitchMode?: boolean; // Enable glitch effect on the CRT
+  enableGlitch?: boolean; // Enable glitch effect on the CRT
   //* Color and theming
   theme?: "green" | "amber" | "blue" | "custom"; // Color theme for scanlines
   glowColor?: string; // Outer glow color if enabled (CSS color string)
   edgeGlowColor?: string; // Inner edge glow color if enabled (CSS color string)
   edgeGlowSize?: number; // Size of the inner edge glow in pixels
-  //* Animation intensity
-  flickerIntensity?: "low" | "medium" | "high"; // Intensity of the flicker effect
-  glitchIntensity?: "low" | "medium" | "high"; // Intensity of the glitch effect
+  //* Animation intensity and speed
+  flickerIntensity?: "low" | "medium" | "high" | number; // Flicker depth: string for preset speed, or number (0-1) for opacity variance
+  flickerSpeed?: "low" | "medium" | "high" | number; // Flicker animation speed: preset string or number in seconds
+  glitchIntensity?: "low" | "medium" | "high" | number; // Glitch distance: string for preset speed, or number (0-1) for shake amount
+  glitchSpeed?: "low" | "medium" | "high" | number; // Glitch animation speed: preset string or number in seconds
   vignetteIntensity?: number; // 0 to 1, darkness at edges
   //* Content
   children: React.ReactNode; // Content to render inside CRT effect
@@ -41,10 +43,8 @@ interface CRTEffectProps {
 
 //! MAIN CRT EFFECT COMPONENT
 const CRTEffect = (props: CRTEffectProps) => {
-  // Extract preset and children from props
   const { preset, children, ...userProps } = props;
 
-  // Get preset configuration if preset is specified
   const presetConfig = preset ? presets[preset] : {};
 
   // Merge: defaults < preset values < user-provided props
@@ -67,17 +67,17 @@ const CRTEffect = (props: CRTEffectProps) => {
     edgeGlowSize: 30,
     enableFlicker: false,
     scanlineOrientation: "horizontal" as const,
-    glitchIntensity: "medium" as const,
-    flickerIntensity: "medium" as const,
-    glitchMode: false,
+    glitchIntensity: 1.0,
+    glitchSpeed: 0.6,
+    flickerIntensity: 0.08,
+    flickerSpeed: 0.8,
+    enableGlitch: false,
     enableVignette: false,
     vignetteIntensity: 0.4,
   };
 
-  // Final configuration: merge all three layers
   const config = { ...defaults, ...presetConfig, ...userProps };
 
-  // Destructure final configuration
   const {
     enabled,
     sweepDuration,
@@ -98,12 +98,13 @@ const CRTEffect = (props: CRTEffectProps) => {
     enableFlicker,
     scanlineOrientation,
     glitchIntensity,
+    glitchSpeed,
     flickerIntensity,
-    glitchMode,
+    flickerSpeed,
+    enableGlitch,
     enableVignette,
     vignetteIntensity,
   } = config;
-  // Early return if effects are disabled - just render children
   if (!enabled) {
     return <>{children}</>;
   }
@@ -144,20 +145,45 @@ const CRTEffect = (props: CRTEffectProps) => {
     .filter(Boolean) // Remove falsy values
     .join(" ");
 
-  //! ANIMATION SPEED MAPPINGS
+  //! ANIMATION SPEED AND INTENSITY PROCESSING
 
-  //* Map intensity levels to CSS animation durations
-  const glitchSpeedMap = {
-    low: "1s", // Slow, subtle glitching
-    medium: "0.6s", // Standard glitch speed
-    high: "0.3s", // Fast, intense glitching
-  };
+  //* Process flicker intensity and speed
+  const processedFlickerIntensity =
+    typeof flickerIntensity === "number"
+      ? flickerIntensity
+      : flickerIntensity === "low"
+      ? 0.05
+      : flickerIntensity === "high"
+      ? 0.12
+      : 0.08; // medium
 
-  const flickerSpeedMap = {
-    low: "1.5s", // Slow, gentle flicker
-    medium: "0.8s", // Standard flicker speed
-    high: "0.4s", // Fast, intense flicker
-  };
+  const processedFlickerSpeed =
+    typeof flickerSpeed === "number"
+      ? `${flickerSpeed}s`
+      : flickerSpeed === "low"
+      ? "1.5s"
+      : flickerSpeed === "high"
+      ? "0.4s"
+      : "0.8s"; // medium
+
+  //* Process glitch intensity and speed
+  const processedGlitchIntensity =
+    typeof glitchIntensity === "number"
+      ? glitchIntensity
+      : glitchIntensity === "low"
+      ? 0.3
+      : glitchIntensity === "high"
+      ? 0.9
+      : 0.6; // medium
+
+  const processedGlitchSpeed =
+    typeof glitchSpeed === "number"
+      ? `${glitchSpeed}s`
+      : glitchSpeed === "low"
+      ? "1s"
+      : glitchSpeed === "high"
+      ? "0.3s"
+      : "0.6s"; // medium
 
   //! MAIN COMPONENT RENDER
 
@@ -181,8 +207,10 @@ const CRTEffect = (props: CRTEffectProps) => {
           // Convert orientation to CSS gradient direction
           ["--scanline-gradient-direction"]:
             scanlineOrientation === "horizontal" ? "to bottom" : "to right",
-          ["--glitch-speed"]: glitchSpeedMap[glitchIntensity ?? "medium"],
-          ["--flicker-speed"]: flickerSpeedMap[flickerIntensity ?? "medium"],
+          ["--glitch-speed"]: processedGlitchSpeed,
+          ["--glitch-intensity"]: processedGlitchIntensity,
+          ["--flicker-speed"]: processedFlickerSpeed,
+          ["--flicker-intensity"]: processedFlickerIntensity,
           ["--vignette-intensity"]: vignetteIntensity,
           // Outer glow using filter (not clipped by overflow)
           filter: enableGlow
@@ -192,9 +220,7 @@ const CRTEffect = (props: CRTEffectProps) => {
       }
     >
       {/* Inner container for content - glitch effect applies here */}
-      <div
-        className={["crt-inner", glitchMode ? "glitch-on" : ""].join(" ")}
-      >
+      <div className={["crt-inner", enableGlitch ? "glitch-on" : ""].join(" ")}>
         {children}
       </div>
       {/* Edge glow overlay - only rendered if enabled */}

@@ -141,28 +141,28 @@
     opacity: 1; /* Full brightness */
   }
   10% {
-    opacity: 0.92; /* Noticeable dim */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.53); /* Noticeable dim */
   }
   20% {
-    opacity: 0.98; /* Almost full */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.13); /* Almost full */
   }
   30% {
-    opacity: 0.88; /* Deeper dim */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.8); /* Deeper dim */
   }
   40% {
-    opacity: 0.95; /* Medium */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.33); /* Medium */
   }
   50% {
-    opacity: 0.90; /* Noticeable dim */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.67); /* Noticeable dim */
   }
   60% {
     opacity: 1; /* Full brightness */
   }
   70% {
-    opacity: 0.85; /* Most noticeable dim */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 1.0); /* Most noticeable dim */
   }
   80% {
-    opacity: 0.96; /* Almost full */
+    opacity: calc(1 - var(--flicker-intensity, 0.15) * 0.27); /* Almost full */
   }
   90% {
     opacity: 1; /* Full brightness */
@@ -182,25 +182,41 @@
     transform: translate(0, 0) skew(0deg); /* Normal position */
   }
   10% {
-    transform: translate(-2px, 1px) skew(-0.5deg); /* Quick jitter */
+    transform: translate(
+        calc(-2px * var(--glitch-intensity, 1)),
+        calc(1px * var(--glitch-intensity, 1))
+      )
+      skew(calc(-0.5deg * var(--glitch-intensity, 1))); /* Quick jitter */
   }
   20% {
     transform: translate(0, 0) skew(0deg); /* Return to normal */
   }
   30% {
-    transform: translate(3px, -1px) skew(0.8deg); /* Quick jitter opposite direction */
+    transform: translate(
+        calc(3px * var(--glitch-intensity, 1)),
+        calc(-1px * var(--glitch-intensity, 1))
+      )
+      skew(calc(0.8deg * var(--glitch-intensity, 1))); /* Quick jitter opposite direction */
   }
   40% {
     transform: translate(0, 0) skew(0deg); /* Return to normal */
   }
   50% {
-    transform: translate(-1px, 2px) skew(-0.3deg); /* Smaller distortion */
+    transform: translate(
+        calc(-1px * var(--glitch-intensity, 1)),
+        calc(2px * var(--glitch-intensity, 1))
+      )
+      skew(calc(-0.3deg * var(--glitch-intensity, 1))); /* Smaller distortion */
   }
   60% {
     transform: translate(0, 0) skew(0deg); /* Return to normal */
   }
   70% {
-    transform: translate(2px, -2px) skew(0.6deg); /* Medium jitter */
+    transform: translate(
+        calc(2px * var(--glitch-intensity, 1)),
+        calc(-2px * var(--glitch-intensity, 1))
+      )
+      skew(calc(0.6deg * var(--glitch-intensity, 1))); /* Medium jitter */
   }
   80%,
   90% {

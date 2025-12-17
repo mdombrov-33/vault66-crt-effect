@@ -49,9 +49,9 @@ function App() {
         {/* CYBERPUNK */}
         <div>
           <h3 style={{ color: "#888", marginBottom: "10px" }}>
-            preset="cyberpunk"
+            preset="cyberpunk" + PUMPED UP FLICKER & GLITCH
           </h3>
-          <CRTEffect preset="cyberpunk" edgeGlowSize={0.2} enableGlow={false}>
+          <CRTEffect preset="cyberpunk">
             <div
               style={{
                 backgroundColor: "#000",
@@ -60,7 +60,13 @@ function App() {
               }}
             >
               <p>CYBERPUNK PRESET</p>
-              <p>Purple/magenta neon with heavy glow and glitch</p>
+              <p>Purple/magenta neon with HEAVY flicker and glitch!</p>
+              <p>
+                flickerIntensity={0.25} flickerSpeed={0.4}
+              </p>
+              <p>
+                glitchIntensity={0.9} glitchSpeed={0.3}
+              </p>
             </div>
           </CRTEffect>
         </div>
