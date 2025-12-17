@@ -1,7 +1,12 @@
 import React from "react";
+import { presets } from "../presets";
+import type { PresetName } from "../presets";
 
 //! CRT EFFECT COMPONENT PROPS
 interface CRTEffectProps {
+  //* Preset configuration
+  preset?: PresetName; // Apply a predefined preset (can be overridden by individual props)
+  //* Master toggle
   enabled?: boolean; // Master toggle for all effects
   //* Sweep line configuration
   sweepDuration?: number; // Speed of the sweep line animation in seconds
@@ -35,33 +40,69 @@ interface CRTEffectProps {
 }
 
 //! MAIN CRT EFFECT COMPONENT
-const CRTEffect = ({
-  // Default values for all props
-  enabled = true,
-  sweepDuration = 10,
-  sweepThickness = 10,
-  sweepStyle = "classic",
-  scanlineOpacity = 0.2,
-  scanlineColor = "rgba(91, 179, 135, 0.2)", // fallback if custom
-  scanlineThickness = 2,
-  scanlineGap = 3,
-  enableScanlines = true,
-  enableSweep = true,
-  theme = "green",
-  enableGlow = false,
-  glowColor = "rgba(0, 255, 128, 0.3)",
-  enableEdgeGlow = false,
-  edgeGlowColor = "rgba(0, 255, 128, 0.2)",
-  edgeGlowSize = 30,
-  enableFlicker = false,
-  scanlineOrientation = "horizontal",
-  glitchIntensity = "medium",
-  flickerIntensity = "medium",
-  glitchMode = false,
-  enableVignette = false,
-  vignetteIntensity = 0.4,
-  children,
-}: CRTEffectProps) => {
+const CRTEffect = (props: CRTEffectProps) => {
+  // Extract preset and children from props
+  const { preset, children, ...userProps } = props;
+
+  // Get preset configuration if preset is specified
+  const presetConfig = preset ? presets[preset] : {};
+
+  // Merge: defaults < preset values < user-provided props
+  const defaults = {
+    enabled: true,
+    sweepDuration: 10,
+    sweepThickness: 10,
+    sweepStyle: "classic" as const,
+    scanlineOpacity: 0.2,
+    scanlineColor: "rgba(91, 179, 135, 0.2)",
+    scanlineThickness: 2,
+    scanlineGap: 3,
+    enableScanlines: true,
+    enableSweep: true,
+    theme: "green" as const,
+    enableGlow: false,
+    glowColor: "rgba(0, 255, 128, 0.3)",
+    enableEdgeGlow: false,
+    edgeGlowColor: "rgba(0, 255, 128, 0.2)",
+    edgeGlowSize: 30,
+    enableFlicker: false,
+    scanlineOrientation: "horizontal" as const,
+    glitchIntensity: "medium" as const,
+    flickerIntensity: "medium" as const,
+    glitchMode: false,
+    enableVignette: false,
+    vignetteIntensity: 0.4,
+  };
+
+  // Final configuration: merge all three layers
+  const config = { ...defaults, ...presetConfig, ...userProps };
+
+  // Destructure final configuration
+  const {
+    enabled,
+    sweepDuration,
+    sweepThickness,
+    sweepStyle,
+    scanlineOpacity,
+    scanlineColor,
+    scanlineThickness,
+    scanlineGap,
+    enableScanlines,
+    enableSweep,
+    theme,
+    enableGlow,
+    glowColor,
+    enableEdgeGlow,
+    edgeGlowColor,
+    edgeGlowSize,
+    enableFlicker,
+    scanlineOrientation,
+    glitchIntensity,
+    flickerIntensity,
+    glitchMode,
+    enableVignette,
+    vignetteIntensity,
+  } = config;
   // Early return if effects are disabled - just render children
   if (!enabled) {
     return <>{children}</>;
@@ -126,6 +167,7 @@ const CRTEffect = ({
       style={
         {
           position: "relative", // Enable positioning for pseudo-elements
+          overflow: "hidden", // Clip sweep and scanlines to container
           // CSS custom properties for dynamic styling
           ["--sweep-duration"]: `${sweepDuration}s`,
           ["--sweep-thickness"]: `${sweepThickness}px`,
@@ -142,21 +184,21 @@ const CRTEffect = ({
           ["--glitch-speed"]: glitchSpeedMap[glitchIntensity ?? "medium"],
           ["--flicker-speed"]: flickerSpeedMap[flickerIntensity ?? "medium"],
           ["--vignette-intensity"]: vignetteIntensity,
+          // Outer glow using filter (not clipped by overflow)
+          filter: enableGlow
+            ? `drop-shadow(0 0 6px var(--glow-color)) drop-shadow(0 0 12px var(--glow-color)) drop-shadow(0 0 20px var(--glow-color))`
+            : undefined,
         } as React.CSSProperties
       }
     >
       {/* Inner container for content - glitch effect applies here */}
       <div
         className={["crt-inner", glitchMode ? "glitch-on" : ""].join(" ")}
-        style={{
-          // Outer glow effect applied as box-shadow
-          boxShadow: enableGlow
-            ? `0 0 6px var(--glow-color), 0 0 12px var(--glow-color), 0 0 20px var(--glow-color)`
-            : undefined,
-        }}
       >
         {children}
       </div>
+      {/* Edge glow overlay - only rendered if enabled */}
+      {enableEdgeGlow && <div className="crt-edge-glow" />}
       {/* Vignette overlay - only rendered if enabled */}
       {enableVignette && <div className="crt-vignette" />}
     </div>

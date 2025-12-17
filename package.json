@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "type": "module",
   "license": "MIT",
   "main": "dist/crt-effect.cjs.js",
@@ -28,7 +28,14 @@
     "terminal",
     "console",
     "glitch-effect",
-    "pixelated-ui"
+    "pixelated-ui",
+    "presets",
+    "fallout",
+    "cyberpunk",
+    "arcade",
+    "commodore64",
+    "dos",
+    "vt100"
   ],
   "repository": {
     "type": "git",

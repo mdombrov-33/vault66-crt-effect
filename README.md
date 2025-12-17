@@ -25,32 +25,20 @@ npm install vault66-crt-effect
 yarn add vault66-crt-effect
 ```
 
-## Usage
+## Quick Start
 
-```bash
+Use a preset for instant retro vibes:
+
+```jsx
 import React from 'react';
 import CRTEffect from 'vault66-crt-effect';
 import "vault66-crt-effect/dist/vault66-crt-effect.css";
 
 function App() {
   return (
-    <CRTEffect
-      enabled={true}
-      sweepDuration={10}
-      sweepThickness={10}
-      scanlineOpacity={0.3}
-      theme="blue"
-      enableScanlines={true}
-      enableSweep={true}
-      enableGlow={true}
-      glowColor="rgba(0, 132, 255, 0.3)"
-      enableEdgeGlow={true}
-      edgeGlowColor="rgba(30, 128, 92, 0.9)"
-      edgeGlowSize={100}
-      enableFlicker={true}
-    >
+    <CRTEffect preset="fallout">
       <div style={{ padding: '20px', fontSize: '24px' }}>
-        Hello CRT Effect!
+        Welcome to the Wasteland!
       </div>
     </CRTEffect>
   );
@@ -59,10 +47,33 @@ function App() {
 export default App;
 ```
 
+Or customize everything manually:
+
+```jsx
+<CRTEffect
+  enabled={true}
+  sweepDuration={10}
+  sweepThickness={10}
+  scanlineOpacity={0.3}
+  theme="blue"
+  enableScanlines={true}
+  enableSweep={true}
+  enableGlow={true}
+  glowColor="rgba(0, 132, 255, 0.3)"
+  enableEdgeGlow={true}
+  edgeGlowColor="rgba(30, 128, 92, 0.9)"
+  edgeGlowSize={100}
+  enableFlicker={true}
+>
+  <div>Your content here</div>
+</CRTEffect>
+```
+
 ## Props
 
 | Prop                  | Type                                       | Default                     | Purpose                                                                                                                      |
 | --------------------- | ------------------------------------------ | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `preset`              | `"fallout" \| "dos" \| "cyberpunk" \| "arcade" \| "commodore64" \| "apple2" \| "vt100" \| "minimal"` | `undefined` | Apply a complete preset configuration. Individual props can override preset values. See [Presets](#presets) section below. |
 | `enabled`             | `boolean`                                  | `true`                      | Enables or disables the entire CRT effect                                                                                    |
 | `sweepDuration`       | `number`                                   | `10`                        | Duration in seconds for the vertical sweep line animation                                                                    |
 | `sweepThickness`      | `number`                                   | `10`                        | Height (thickness in pixels) of the sweep line                                                                               |
@@ -88,8 +99,51 @@ export default App;
 | `vignetteIntensity`   | `number` (0 to 1)                          | `0.4`                       | Controls vignette darkness at the edges                                                                                      |
 | `children`            | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                                            |
 
+## Presets
+
+Choose from 8 authentic CRT monitor presets for instant retro aesthetics:
+
+### `preset="fallout"`
+Classic Vault-Tec terminal from the Fallout universe. Green phosphor display with medium scanlines, noticeable sweep line, subtle edge glow, and gentle flicker. Perfect for post-apocalyptic interfaces and retro terminal UIs.
+
+### `preset="dos"`
+Authentic DOS/Hercules monitor aesthetic. Warm orange phosphor (like classic IBM PC monitors), clean scanlines, no sweep or glow for that professional 80s computing look. Great for vintage command-line interfaces.
+
+### `preset="cyberpunk"`
+Neon-drenched future aesthetic. Purple/magenta phosphor with heavy outer and edge glow, fast sweep, medium flicker, and subtle glitch effects. Ideal for sci-fi, hacker, or futuristic neon interfaces.
+
+### `preset="arcade"`
+Retro arcade cabinet monitor. Bright saturated green, thick scanlines, fast sweep (4 seconds), strong glow effects, and medium flicker. Brings that coin-op gaming nostalgia to your app.
+
+### `preset="commodore64"`
+Iconic 8-bit home computer display. Light purple-blue phosphor (periwinkle), chunky scanlines, medium sweep, subtle flicker. Perfect for 80s computer and retro gaming aesthetics.
+
+### `preset="apple2"`
+Vintage Apple II computer terminal. Bright green phosphor display, tight scanlines, clean appearance with no sweep or glow. Great for authentic vintage computing interfaces.
+
+### `preset="vt100"`
+Professional DEC VT100 terminal. Pale greenish-white phosphor, minimal scanlines, no sweep or glow for a clean, professional look. Ideal for Unix terminals and serious retro computing applications.
+
+### `preset="minimal"`
+Barely-there CRT effect for modern UIs. Subtle scanlines and light vignette only, no sweep, glow, or flicker. Perfect when you want just a hint of retro charm without overwhelming your contemporary design.
+
+**Using Presets:**
+
+```jsx
+// Use a preset as-is
+<CRTEffect preset="arcade">
+  <YourContent />
+</CRTEffect>
+
+// Override specific preset values
+<CRTEffect preset="fallout" sweepDuration={5} enableFlicker={false}>
+  <YourContent />
+</CRTEffect>
+```
+
 ## Customization
 
+- Use the `preset` prop for instant authentic CRT looks, or start from scratch with individual props
 - Use the `theme` prop to quickly switch between predefined scanline color palettes: `"green"`, `"amber"`, or `"blue"`
 - For full control over scanline color, set `theme="custom"` and provide your own `scanlineColor` as any valid CSS color string
 - Adjust the opacity and orientation of the scanlines with `scanlineOpacity` and `scanlineOrientation`

@@ -3,7 +3,7 @@
 /** Sweep Line - vertical bar that moves down the screen (classic style) */
 .crt-effect-wrapper.sweep-on::before {
   content: "";
-  position: fixed; /* Fixed positioning to cover entire viewport */
+  position: absolute; /* Absolute positioning scoped to container */
   top: -30%; /* Start above screen for smooth entry */
   left: 0;
   width: 100%; /* Full width sweep */
@@ -26,7 +26,7 @@
 /** Sweep Line - softer, more subtle version */
 .crt-effect-wrapper.sweep-soft::before {
   content: "";
-  position: fixed;
+  position: absolute;
   top: -30%;
   left: 0;
   width: 100%;
@@ -61,7 +61,7 @@
 /** Scanlines - horizontal repeating lines overlay that mimics CRT display */
 .crt-effect-wrapper.scanlines-on::after {
   content: "";
-  position: fixed; /* Cover entire viewport */
+  position: absolute; /* Cover container only */
   inset: 0; /* Shorthand for top: 0, right: 0, bottom: 0, left: 0 */
   pointer-events: none;
   /* Repeating gradient creates horizontal line pattern */
@@ -93,10 +93,14 @@
 /*! GLOW EFFECTS */
 
 /** Edge Glow - inward glow around screen edges */
-.crt-effect-wrapper.edge-glow-on {
+.crt-edge-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0; /* Fill parent container */
   /* Inset box-shadow creates inner glow effect */
   box-shadow: inset 0 0 var(--edge-glow-size, 30px)
     var(--edge-glow-color, rgba(0, 255, 128, 0.2));
+  z-index: 9998; /* Above content, below scanlines */
 }
 
 /** Vignette - subtle darkening at edges for depth */
@@ -133,56 +137,74 @@
 /** Flicker Animation - random opacity changes to simulate power fluctuation */
 @keyframes crt-flicker {
   0%,
-  60%,
-  90%,
   100% {
     opacity: 1; /* Full brightness */
   }
   10% {
-    opacity: 0.96; /* Slight dim */
+    opacity: 0.92; /* Noticeable dim */
   }
   20% {
-    opacity: 0.99; /* Almost full */
+    opacity: 0.98; /* Almost full */
   }
   30% {
-    opacity: 0.97; /* Medium dim */
+    opacity: 0.88; /* Deeper dim */
   }
   40% {
-    opacity: 0.98; /* Slight dim */
+    opacity: 0.95; /* Medium */
   }
   50% {
-    opacity: 0.97; /* Medium dim */
+    opacity: 0.90; /* Noticeable dim */
+  }
+  60% {
+    opacity: 1; /* Full brightness */
   }
   70% {
-    opacity: 0.95; /* Most noticeable dim */
+    opacity: 0.85; /* Most noticeable dim */
   }
   80% {
-    opacity: 0.98; /* Back to almost full */
+    opacity: 0.96; /* Almost full */
+  }
+  90% {
+    opacity: 1; /* Full brightness */
   }
 }
 
 /** Glitch Effect - applies to inner content for interference simulation */
 .crt-inner.glitch-on {
-  animation: glitch-fuzz var(--glitch-speed, 0.6s) steps(2, end) infinite;
+  animation: glitch-fuzz var(--glitch-speed, 0.6s) ease-in-out infinite;
   will-change: transform; /* Optimize for frequent transform changes */
 }
 
 /** Glitch Animation - random position/skew changes simulating signal interference */
 @keyframes glitch-fuzz {
-  0% {
-    transform: translate(0, 0) skew(0deg, 0deg); /* Normal position */
+  0%,
+  100% {
+    transform: translate(0, 0) skew(0deg); /* Normal position */
   }
-  25% {
-    transform: translate(-4px, 2px) skew(-1deg, 1deg); /* Shift left/up with skew */
+  10% {
+    transform: translate(-2px, 1px) skew(-0.5deg); /* Quick jitter */
+  }
+  20% {
+    transform: translate(0, 0) skew(0deg); /* Return to normal */
+  }
+  30% {
+    transform: translate(3px, -1px) skew(0.8deg); /* Quick jitter opposite direction */
+  }
+  40% {
+    transform: translate(0, 0) skew(0deg); /* Return to normal */
   }
   50% {
-    transform: translate(3px, -2px) skew(1deg, -1deg); /* Shift right/down with opposite skew */
+    transform: translate(-1px, 2px) skew(-0.3deg); /* Smaller distortion */
   }
-  75% {
-    transform: translate(-2px, 2px) skew(-0.5deg, 0.5deg); /* Smaller shift and skew */
+  60% {
+    transform: translate(0, 0) skew(0deg); /* Return to normal */
   }
-  100% {
-    transform: translate(0, 0) skew(0deg, 0deg); /* Back to normal */
+  70% {
+    transform: translate(2px, -2px) skew(0.6deg); /* Medium jitter */
+  }
+  80%,
+  90% {
+    transform: translate(0, 0) skew(0deg); /* Stay normal for a bit */
   }
 }
 
