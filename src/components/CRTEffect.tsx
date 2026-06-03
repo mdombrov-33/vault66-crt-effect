@@ -26,6 +26,10 @@ interface CRTEffectProps {
   enableFlicker?: boolean; // Enable flicker effect on the CRT
   enableVignette?: boolean; // Enable vignette overlay
   enableGlitch?: boolean; // Enable glitch effect on the CRT
+  enableCurvature?: boolean; // Enable curved-glass overlay (corner highlight + darkened rounded edges)
+  enableGlare?: boolean; // Enable diagonal glass-reflection sheen across the screen
+  enableNoise?: boolean; // Enable animated RF static/snow overlay
+  glitchChromatic?: boolean; // Add red/cyan chromatic aberration to the glitch (requires enableGlitch)
   //* Color and theming
   theme?: "green" | "amber" | "blue" | "custom"; // Color theme for scanlines
   glowColor?: string; // Outer glow color if enabled (CSS color string)
@@ -37,6 +41,9 @@ interface CRTEffectProps {
   glitchIntensity?: "low" | "medium" | "high" | number; // Glitch distance: string for preset speed, or number (0-1) for shake amount
   glitchSpeed?: "low" | "medium" | "high" | number; // Glitch animation speed: preset string or number in seconds
   vignetteIntensity?: number; // 0 to 1, darkness at edges
+  curvatureIntensity?: number; // 0 to 1, strength of the curved-glass edge darkening
+  glareIntensity?: number; // 0 to 1, brightness of the glass-reflection sheen
+  noiseOpacity?: number; // 0 to 1, opacity of the static/snow overlay
   //* Content
   children: React.ReactNode; // Content to render inside CRT effect
 }
@@ -74,6 +81,13 @@ const CRTEffect = (props: CRTEffectProps) => {
     enableGlitch: false,
     enableVignette: false,
     vignetteIntensity: 0.4,
+    enableCurvature: false,
+    curvatureIntensity: 0.5,
+    enableGlare: false,
+    glareIntensity: 0.18,
+    enableNoise: false,
+    noiseOpacity: 0.15,
+    glitchChromatic: false,
   };
 
   const config = { ...defaults, ...presetConfig, ...userProps };
@@ -104,6 +118,13 @@ const CRTEffect = (props: CRTEffectProps) => {
     enableGlitch,
     enableVignette,
     vignetteIntensity,
+    enableCurvature,
+    curvatureIntensity,
+    enableGlare,
+    glareIntensity,
+    enableNoise,
+    noiseOpacity,
+    glitchChromatic,
   } = config;
   if (!enabled) {
     return <>{children}</>;
@@ -212,6 +233,9 @@ const CRTEffect = (props: CRTEffectProps) => {
           ["--flicker-speed"]: processedFlickerSpeed,
           ["--flicker-intensity"]: processedFlickerIntensity,
           ["--vignette-intensity"]: vignetteIntensity,
+          ["--curvature-intensity"]: curvatureIntensity,
+          ["--glare-intensity"]: glareIntensity,
+          ["--noise-opacity"]: noiseOpacity,
           // Outer glow using filter (not clipped by overflow)
           filter: enableGlow
             ? `drop-shadow(0 0 6px var(--glow-color)) drop-shadow(0 0 12px var(--glow-color)) drop-shadow(0 0 20px var(--glow-color))`
@@ -220,9 +244,23 @@ const CRTEffect = (props: CRTEffectProps) => {
       }
     >
       {/* Inner container for content - glitch effect applies here */}
-      <div className={["crt-inner", enableGlitch ? "glitch-on" : ""].join(" ")}>
+      <div
+        className={[
+          "crt-inner",
+          enableGlitch ? "glitch-on" : "",
+          enableGlitch && glitchChromatic ? "chromatic-on" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         {children}
       </div>
+      {/* Curved-glass overlay - only rendered if enabled */}
+      {enableCurvature && <div className="crt-curvature" />}
+      {/* Noise/static overlay - only rendered if enabled */}
+      {enableNoise && <div className="crt-noise" />}
+      {/* Glare/reflection overlay - only rendered if enabled */}
+      {enableGlare && <div className="crt-glare" />}
       {/* Edge glow overlay - only rendered if enabled */}
       {enableEdgeGlow && <div className="crt-edge-glow" />}
       {/* Vignette overlay - only rendered if enabled */}

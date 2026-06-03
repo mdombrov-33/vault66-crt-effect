@@ -224,10 +224,145 @@
   }
 }
 
+/*! CURVED SCREEN (GLASS) EFFECT */
+
+/** Curvature - simulates a bulged CRT glass with a corner highlight and darkened, rounded edges */
+.crt-curvature {
+  pointer-events: none;
+  position: absolute;
+  inset: 0; /* Fill parent container */
+  background:
+    /* Soft top-left highlight - light catching the curved glass */
+    radial-gradient(
+        ellipse 75% 75% at 30% 25%,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 55%
+      ),
+    /* Darkened, rounded edges - the screen falling away from the viewer */
+      radial-gradient(
+        ellipse 100% 100% at 50% 50%,
+        transparent 0%,
+        transparent 42%,
+        rgba(0, 0, 0, calc(var(--curvature-intensity, 0.5) * 0.35)) 72%,
+        rgba(0, 0, 0, calc(var(--curvature-intensity, 0.5) * 0.9)) 100%
+      );
+  z-index: 9995; /* Below noise, vignette and scanlines */
+}
+
+/*! GLARE (SCREEN REFLECTION) EFFECT */
+
+/** Glare - a diagonal sheen across the top of the screen, like glass catching ambient light */
+.crt-glare {
+  pointer-events: none;
+  position: absolute;
+  inset: 0; /* Fill parent container */
+  background:
+    /* Broad, soft diagonal sheen across the whole glass */
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.15)) 22%,
+      rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.45)) 42%,
+      rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.55)) 50%,
+      rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.45)) 58%,
+      rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.15)) 78%,
+      transparent 100%
+    ),
+    /* Soft sheen across the top edge */
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, calc(var(--glare-intensity, 0.1) * 0.4)) 0%,
+        transparent 42%
+      );
+  z-index: 9997; /* Above content, below sweep */
+}
+
+/*! NOISE (STATIC / SNOW) EFFECT */
+
+/** Noise - animated RF static overlay generated from SVG fractal noise */
+.crt-noise {
+  pointer-events: none;
+  position: absolute;
+  /* Oversized so the drift animation never reveals the container edges */
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px; /* Pin tile size so grain is consistent */
+  background-repeat: repeat;
+  opacity: var(--noise-opacity, 0.08);
+  mix-blend-mode: screen; /* Lighten dark CRT screens so the static is visible */
+  z-index: 9996; /* Above content, below scanlines/sweep */
+  animation: crt-noise 0.5s steps(4) infinite;
+  will-change: transform; /* Promote to its own layer for smooth animation */
+}
+
+/** Noise Animation - small jitters to make the static crawl */
+@keyframes crt-noise {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3%, 2%);
+  }
+  50% {
+    transform: translate(2%, -3%);
+  }
+  75% {
+    transform: translate(-2%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/*! CHROMATIC ABERRATION (RGB SPLIT) GLITCH */
+
+/** Adds animated red/cyan channel separation on top of the positional glitch */
+.crt-inner.glitch-on.chromatic-on {
+  animation: glitch-fuzz var(--glitch-speed, 0.6s) ease-in-out infinite,
+    glitch-chroma var(--glitch-speed, 0.6s) ease-in-out infinite;
+}
+
+/** Chromatic Animation - red/cyan split via colored drop-shadows + hue shift */
+@keyframes glitch-chroma {
+  0%,
+  100% {
+    filter: none; /* Clean signal */
+  }
+  10% {
+    filter: drop-shadow(calc(2px * var(--glitch-intensity, 1)) 0 rgba(255, 0, 60, 0.5))
+      drop-shadow(calc(-2px * var(--glitch-intensity, 1)) 0 rgba(0, 255, 255, 0.5));
+  }
+  30% {
+    filter: drop-shadow(calc(-3px * var(--glitch-intensity, 1)) 0 rgba(255, 0, 60, 0.5))
+      drop-shadow(calc(3px * var(--glitch-intensity, 1)) 0 rgba(0, 255, 255, 0.5));
+  }
+  50% {
+    filter: hue-rotate(40deg); /* Quick color wobble */
+  }
+  70% {
+    filter: drop-shadow(calc(2px * var(--glitch-intensity, 1)) 0 rgba(255, 0, 60, 0.5))
+      drop-shadow(calc(-2px * var(--glitch-intensity, 1)) 0 rgba(0, 255, 255, 0.5));
+  }
+}
+
 /*! ACCESSIBILITY */
 
 /** Respect user's reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
+  /** Freeze the static drift but keep a static grain */
+  .crt-noise {
+    animation: none !important;
+  }
+
+  /** Drop the animated chromatic split, keep positional glitch disabled below */
+  .crt-inner.glitch-on.chromatic-on {
+    animation: none !important;
+    filter: none !important;
+  }
+
   /** Disable sweep animation for motion sensitivity */
   .crt-effect-wrapper.sweep-on::before,
   .crt-effect-wrapper.sweep-soft::before {
