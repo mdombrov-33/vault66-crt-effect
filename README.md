@@ -99,6 +99,13 @@ Or customize everything manually:
 | `glitchSpeed`         | `"low" \| "medium" \| "high" \| number`    | `0.6`                       | Glitch animation speed: preset string or custom number in seconds. Lower values = faster glitch                              |
 | `enableVignette`      | `boolean`                                  | `false`                     | Enables a subtle edge-darkening vignette overlay                                                                             |
 | `vignetteIntensity`   | `number` (0 to 1)                          | `0.4`                       | Controls vignette darkness at the edges                                                                                      |
+| `enableCurvature`     | `boolean`                                  | `false`                     | Enables a curved-glass overlay: a soft corner highlight plus darkened, rounded screen edges                                  |
+| `curvatureIntensity`  | `number` (0 to 1)                          | `0.5`                       | Strength of the curved-glass edge darkening                                                                                  |
+| `enableGlare`         | `boolean`                                  | `false`                     | Enables a broad, soft diagonal glass-reflection sheen across the screen                                                      |
+| `glareIntensity`      | `number` (0 to 1)                          | `0.18`                      | Brightness of the glare/reflection sheen                                                                                     |
+| `enableNoise`         | `boolean`                                  | `false`                     | Enables an animated RF static/snow overlay generated from SVG fractal noise                                                  |
+| `noiseOpacity`        | `number` (0 to 1)                          | `0.15`                      | Opacity of the static/snow overlay                                                                                           |
+| `glitchChromatic`     | `boolean`                                  | `false`                     | Adds animated red/cyan chromatic aberration to the glitch (requires `enableGlitch`)                                          |
 | `children`            | `React.ReactNode`                          | —                           | Content to render inside the CRT effect container                                                                            |
 
 ## Presets
