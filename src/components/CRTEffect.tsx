@@ -150,7 +150,7 @@ const CRTEffect = (props: CRTEffectProps) => {
   //* Determine RGB color string for scanlines (no alpha)
   const resolvedScanlineColorRGB =
     theme !== "custom"
-      ? scanlineColorRGBMap[theme] ?? scanlineColorRGBMap.green
+      ? (scanlineColorRGBMap[theme] ?? scanlineColorRGBMap.green)
       : extractRGB(scanlineColor);
 
   //! CSS CLASS NAME COMPOSITION
@@ -168,43 +168,41 @@ const CRTEffect = (props: CRTEffectProps) => {
 
   //! ANIMATION SPEED AND INTENSITY PROCESSING
 
-  //* Process flicker intensity and speed
-  const processedFlickerIntensity =
-    typeof flickerIntensity === "number"
-      ? flickerIntensity
-      : flickerIntensity === "low"
-      ? 0.05
-      : flickerIntensity === "high"
-      ? 0.12
-      : 0.08; // medium
+  //* Resolve a "low"/"medium"/"high" preset to a value, or pass through a custom number
+  const resolveIntensity = (
+    value: "low" | "medium" | "high" | number,
+    levels: Record<"low" | "medium" | "high", number>,
+  ): number => (typeof value === "number" ? value : levels[value]);
 
-  const processedFlickerSpeed =
-    typeof flickerSpeed === "number"
-      ? `${flickerSpeed}s`
-      : flickerSpeed === "low"
-      ? "1.5s"
-      : flickerSpeed === "high"
-      ? "0.4s"
-      : "0.8s"; // medium
+  //* Same as above, but speeds are returned as a CSS seconds string
+  const resolveSpeed = (
+    value: "low" | "medium" | "high" | number,
+    levels: Record<"low" | "medium" | "high", string>,
+  ): string => (typeof value === "number" ? `${value}s` : levels[value]);
 
-  //* Process glitch intensity and speed
-  const processedGlitchIntensity =
-    typeof glitchIntensity === "number"
-      ? glitchIntensity
-      : glitchIntensity === "low"
-      ? 0.3
-      : glitchIntensity === "high"
-      ? 0.9
-      : 0.6; // medium
+  const processedFlickerIntensity = resolveIntensity(flickerIntensity, {
+    low: 0.05,
+    medium: 0.08,
+    high: 0.12,
+  });
 
-  const processedGlitchSpeed =
-    typeof glitchSpeed === "number"
-      ? `${glitchSpeed}s`
-      : glitchSpeed === "low"
-      ? "1s"
-      : glitchSpeed === "high"
-      ? "0.3s"
-      : "0.6s"; // medium
+  const processedFlickerSpeed = resolveSpeed(flickerSpeed, {
+    low: "1.5s",
+    medium: "0.8s",
+    high: "0.4s",
+  });
+
+  const processedGlitchIntensity = resolveIntensity(glitchIntensity, {
+    low: 0.3,
+    medium: 0.6,
+    high: 0.9,
+  });
+
+  const processedGlitchSpeed = resolveSpeed(glitchSpeed, {
+    low: "1s",
+    medium: "0.6s",
+    high: "0.3s",
+  });
 
   //! MAIN COMPONENT RENDER
 
