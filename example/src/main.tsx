@@ -10,6 +10,182 @@ function App() {
       </h1>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "60px" }}>
+        {/* v2.1.0 NEW EFFECTS */}
+        <h2 style={{ color: "#5bb387", borderBottom: "1px solid #333" }}>
+          v2.1.0 new effects
+        </h2>
+
+        {/* CURVATURE - intensity comparison */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            enableCurvature — intensity 0 vs 0.5 vs 1
+          </h3>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {[0, 0.5, 1].map((v) => (
+              <div key={v} style={{ flex: 1 }}>
+                <p style={{ color: "#666", margin: "0 0 6px" }}>
+                  curvatureIntensity={v}
+                </p>
+                <CRTEffect
+                  preset="fallout"
+                  enableScanlines={false}
+                  enableSweep={false}
+                  enableFlicker={false}
+                  enableEdgeGlow={false}
+                  enableVignette={false}
+                  enableCurvature={v > 0}
+                  curvatureIntensity={v}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#0a1a0f",
+                      height: "160px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#5bb387",
+                    }}
+                  >
+                    {v}
+                  </div>
+                </CRTEffect>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* GLARE - intensity comparison */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            enableGlare — intensity 0 vs 0.15 vs 0.4
+          </h3>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {[0, 0.15, 0.4].map((v) => (
+              <div key={v} style={{ flex: 1 }}>
+                <p style={{ color: "#666", margin: "0 0 6px" }}>
+                  glareIntensity={v}
+                </p>
+                <CRTEffect
+                  preset="vt100"
+                  enableSweep={false}
+                  enableGlare={v > 0}
+                  glareIntensity={v}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#000",
+                      height: "160px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#dcffeb",
+                    }}
+                  >
+                    {v}
+                  </div>
+                </CRTEffect>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* NOISE - intensity comparison */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            enableNoise — opacity 0 vs 0.2 vs 0.5
+          </h3>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {[0, 0.2, 0.5].map((v) => (
+              <div key={v} style={{ flex: 1 }}>
+                <p style={{ color: "#666", margin: "0 0 6px" }}>
+                  noiseOpacity={v}
+                </p>
+                <CRTEffect
+                  preset="arcade"
+                  enableSweep={false}
+                  enableFlicker={false}
+                  enableNoise={v > 0}
+                  noiseOpacity={v}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#000",
+                      height: "160px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#0f0",
+                    }}
+                  >
+                    {v}
+                  </div>
+                </CRTEffect>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CHROMATIC GLITCH */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            glitchChromatic (enableGlitch required)
+          </h3>
+          <CRTEffect
+            preset="cyberpunk"
+            enableGlitch
+            glitchChromatic
+            glitchIntensity={0.8}
+            glitchSpeed={0.4}
+          >
+            <div
+              style={{
+                backgroundColor: "#000",
+                padding: "60px",
+                color: "#fff",
+              }}
+            >
+              <p>CHROMATIC GLITCH</p>
+              <p>Red/cyan channel split on every glitch</p>
+            </div>
+          </CRTEffect>
+        </div>
+
+        {/* ALL COMBINED */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            all four combined
+          </h3>
+          <CRTEffect
+            preset="fallout"
+            enableCurvature
+            enableGlare
+            enableNoise
+            enableGlitch
+            glitchChromatic
+          >
+            <div
+              style={{
+                backgroundColor: "#000",
+                padding: "60px",
+                color: "#5bb387",
+              }}
+            >
+              <p>EVERYTHING ON</p>
+              <p>Curvature + glare + noise + chromatic glitch</p>
+            </div>
+          </CRTEffect>
+        </div>
+
+        <h2
+          style={{
+            color: "#888",
+            borderBottom: "1px solid #333",
+            marginTop: "40px",
+          }}
+        >
+          existing presets
+        </h2>
+
         {/* FALLOUT */}
         <div>
           <h3 style={{ color: "#888", marginBottom: "10px" }}>
