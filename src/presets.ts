@@ -22,6 +22,13 @@ export interface PresetConfig {
   enableFlicker?: boolean;
   enableVignette?: boolean;
   enableGlitch?: boolean;
+  enableCurvature?: boolean;
+  enableGlare?: boolean;
+  enableNoise?: boolean;
+  glitchChromatic?: boolean;
+  curvatureIntensity?: number;
+  glareIntensity?: number;
+  noiseOpacity?: number;
   glowColor?: string;
   edgeGlowColor?: string;
   edgeGlowSize?: number;
@@ -67,6 +74,10 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.3,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.6,
+    enableNoise: true,
+    noiseOpacity: 0.2,
   },
 
   /**
@@ -86,6 +97,8 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.25,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.55,
   },
 
   /**
@@ -115,6 +128,13 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableGlitch: true,
     glitchIntensity: 0.3,
     glitchSpeed: 1.0,
+    glitchChromatic: true,
+    enableCurvature: true,
+    curvatureIntensity: 0.7,
+    enableGlare: true,
+    glareIntensity: 0.25,
+    enableNoise: true,
+    noiseOpacity: 0.18,
   },
 
   /**
@@ -139,6 +159,10 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.35,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.6,
+    enableNoise: true,
+    noiseOpacity: 0.15,
   },
 
   /**
@@ -158,6 +182,8 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.2,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.55,
   },
 
   /**
@@ -185,6 +211,10 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.45,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.7,
+    enableGlare: true,
+    glareIntensity: 0.3,
   },
 
   /**
@@ -204,6 +234,8 @@ export const presets: Record<PresetName, PresetConfig> = {
     enableVignette: true,
     vignetteIntensity: 0.15,
     enableGlitch: false,
+    enableCurvature: true,
+    curvatureIntensity: 0.45,
   },
 
   /**
