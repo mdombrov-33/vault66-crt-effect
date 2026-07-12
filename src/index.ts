@@ -1,5 +1,9 @@
-import "./vault66-crt-effect.css";
-import CRTEffect from "./components/CRTEffect";
-export type { PresetName, PresetConfig } from "./presets";
-export { presets } from "./presets";
+import "./style.css";
+import CRTEffect from "./react";
+
+export type { CRTEffectProps } from "./react";
+export type { CRTOptions } from "./core/options";
+export type { PresetName, PresetConfig } from "./core/presets";
+export { presets } from "./core/presets";
+
 export default CRTEffect;
