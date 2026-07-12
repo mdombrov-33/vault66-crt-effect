@@ -10,6 +10,70 @@ function App() {
       </h1>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "60px" }}>
+        {/* v2.2.0 NEW: fill prop */}
+        <h2 style={{ color: "#5bb387", borderBottom: "1px solid #333" }}>
+          v2.2.0 new — fill prop
+        </h2>
+
+        {/* FILL - default (content-sized) vs fill (stretches to parent) */}
+        <div>
+          <h3 style={{ color: "#888", marginBottom: "10px" }}>
+            fill — both live in a 300px-tall parent with a dashed border
+          </h3>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {/* WITHOUT fill: wrapper hugs the small content, leaving the parent empty */}
+            <div
+              style={{
+                flex: 1,
+                height: "300px",
+                border: "1px dashed #555",
+              }}
+            >
+              <p style={{ color: "#666", margin: "0 0 6px" }}>
+                without fill (sizes to content)
+              </p>
+              <CRTEffect preset="fallout">
+                <div
+                  style={{
+                    backgroundColor: "#0a1a0f",
+                    padding: "20px",
+                    color: "#5bb387",
+                  }}
+                >
+                  short content — wrapper only covers this
+                </div>
+              </CRTEffect>
+            </div>
+
+            {/* WITH fill: wrapper stretches to fill the whole 300px parent */}
+            <div
+              style={{
+                flex: 1,
+                height: "300px",
+                border: "1px dashed #555",
+              }}
+            >
+              <p style={{ color: "#666", margin: "0 0 6px" }}>
+                fill (stretches to parent)
+              </p>
+              <CRTEffect preset="fallout" fill>
+                <div
+                  style={{
+                    backgroundColor: "#0a1a0f",
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#5bb387",
+                  }}
+                >
+                  fills the entire parent
+                </div>
+              </CRTEffect>
+            </div>
+          </div>
+        </div>
+
         {/* v2.1.0 NEW EFFECTS */}
         <h2 style={{ color: "#5bb387", borderBottom: "1px solid #333" }}>
           v2.1.0 new effects
