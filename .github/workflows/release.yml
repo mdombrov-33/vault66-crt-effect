@@ -1,0 +1,26 @@
+name: Release
+
+# Create a GitHub Release automatically whenever a version tag is pushed,
+# e.g. `git push origin v3.0.0`. Release notes are generated from the commits
+# (and merged PRs) since the previous tag.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes --verify-tag
