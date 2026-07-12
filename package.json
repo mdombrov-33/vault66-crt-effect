@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "type": "module",
   "license": "MIT",
   "main": "./dist/index.cjs",
@@ -64,6 +64,7 @@
   "author": "Maksym Dombrov",
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json && node scripts/copy-cjs-types.mjs",
+    "prepublishOnly": "npm run build",
     "dev:react": "vite examples/react",
     "dev:vue": "vite examples/vue",
     "dev:vanilla": "vite examples/vanilla",
