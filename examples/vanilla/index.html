@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vault66-crt-effect · Web Component</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 32px;
+        background: #181818;
+        color: #e8e8e8;
+        font-family: system-ui, sans-serif;
+      }
+      h1 {
+        font-weight: 600;
+      }
+      h2 {
+        margin-top: 40px;
+        color: #8bd3a8;
+      }
+      .box {
+        background: #000;
+        color: #fff;
+        padding: 24px;
+        min-height: 120px;
+        display: flex;
+        align-items: flex-end;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      /* `fill` fills the host, so the host needs a height. */
+      .frame {
+        height: 220px;
+        border: 1px dashed #555;
+      }
+      .frame crt-effect {
+        height: 100%;
+      }
+      .frame .box {
+        height: 100%;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background: #0a1a0f;
+        color: #5bb387;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>vault66-crt-effect · Web Component</h1>
+
+    <h2>fill</h2>
+    <div class="frame">
+      <crt-effect preset="fallout" fill>
+        <div class="box">fills the parent</div>
+      </crt-effect>
+    </div>
+
+    <h2>presets</h2>
+    <div class="grid">
+      <crt-effect preset="fallout"><div class="box">fallout</div></crt-effect>
+      <crt-effect preset="dos"><div class="box">dos</div></crt-effect>
+      <crt-effect preset="cyberpunk"><div class="box">cyberpunk</div></crt-effect>
+      <crt-effect preset="arcade"><div class="box">arcade</div></crt-effect>
+      <crt-effect preset="commodore64"><div class="box">commodore64</div></crt-effect>
+      <crt-effect preset="apple2"><div class="box">apple2</div></crt-effect>
+      <crt-effect preset="vt100"><div class="box">vt100</div></crt-effect>
+      <crt-effect preset="minimal"><div class="box">minimal</div></crt-effect>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
