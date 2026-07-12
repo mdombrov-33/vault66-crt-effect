@@ -38,6 +38,12 @@ export interface PresetConfig {
   glitchSpeed?: "low" | "medium" | "high" | number;
   vignetteIntensity?: number;
   scanlineColor?: string;
+  /** Recolor the wrapped content to a phosphor tint (derived from `theme`). */
+  tintText?: boolean;
+  /** Override the phosphor tint color used when `tintText` is on. Any CSS color. */
+  textColor?: string;
+  /** Give the sweep line a bright, colored glow instead of the dark refresh bar. */
+  sweepColor?: string;
 }
 
 export type PresetName =
@@ -56,14 +62,16 @@ export const presets: Record<PresetName, PresetConfig> = {
    */
   fallout: {
     theme: "green",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.25,
     scanlineThickness: 2,
     scanlineGap: 3,
     enableSweep: true,
     sweepDuration: 12,
-    sweepThickness: 10,
+    sweepThickness: 6,
     sweepStyle: "classic",
+    sweepColor: "rgba(91, 179, 135, 0.5)",
     enableGlow: false,
     enableEdgeGlow: true,
     edgeGlowColor: "rgba(91, 179, 135, 0.5)",
@@ -86,6 +94,7 @@ export const presets: Record<PresetName, PresetConfig> = {
   dos: {
     theme: "custom",
     scanlineColor: "rgba(255, 100, 0, 0.3)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.2,
     scanlineThickness: 2,
@@ -107,14 +116,16 @@ export const presets: Record<PresetName, PresetConfig> = {
   cyberpunk: {
     theme: "custom",
     scanlineColor: "rgba(255, 0, 255, 0.3)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.35,
     scanlineThickness: 2,
     scanlineGap: 2,
     enableSweep: true,
     sweepDuration: 5,
-    sweepThickness: 15,
+    sweepThickness: 8,
     sweepStyle: "classic",
+    sweepColor: "rgba(255, 0, 200, 0.5)",
     enableGlow: true,
     glowColor: "rgba(255, 0, 200, 0.5)",
     enableEdgeGlow: true,
@@ -143,14 +154,16 @@ export const presets: Record<PresetName, PresetConfig> = {
   commodore64: {
     theme: "custom",
     scanlineColor: "rgba(160, 160, 255, 0.35)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.35,
     scanlineThickness: 3,
     scanlineGap: 2,
     enableSweep: true,
     sweepDuration: 10,
-    sweepThickness: 12,
+    sweepThickness: 6,
     sweepStyle: "classic",
+    sweepColor: "rgba(160, 160, 255, 0.5)",
     enableGlow: false,
     enableEdgeGlow: false,
     enableFlicker: true,
@@ -171,6 +184,7 @@ export const presets: Record<PresetName, PresetConfig> = {
   apple2: {
     theme: "custom",
     scanlineColor: "rgba(120, 220, 80, 0.3)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.3,
     scanlineThickness: 1,
@@ -192,14 +206,16 @@ export const presets: Record<PresetName, PresetConfig> = {
   arcade: {
     theme: "custom",
     scanlineColor: "rgba(0, 255, 100, 0.4)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.4,
     scanlineThickness: 3,
     scanlineGap: 3,
     enableSweep: true,
     sweepDuration: 4,
-    sweepThickness: 15,
+    sweepThickness: 8,
     sweepStyle: "classic",
+    sweepColor: "rgba(0, 255, 100, 0.5)",
     enableGlow: true,
     glowColor: "rgba(0, 255, 100, 0.5)",
     enableEdgeGlow: true,
@@ -223,6 +239,7 @@ export const presets: Record<PresetName, PresetConfig> = {
   vt100: {
     theme: "custom",
     scanlineColor: "rgba(220, 255, 235, 0.2)",
+    tintText: true,
     enableScanlines: true,
     scanlineOpacity: 0.15,
     scanlineThickness: 2,

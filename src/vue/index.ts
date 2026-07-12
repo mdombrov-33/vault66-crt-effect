@@ -66,6 +66,9 @@ const CRTEffect = defineComponent({
     glareIntensity: { type: Number, default: undefined },
     enableNoise: { type: Boolean, default: undefined },
     noiseOpacity: { type: Number, default: undefined },
+    tintText: { type: Boolean, default: undefined },
+    textColor: { type: String, default: undefined },
+    sweepColor: { type: String, default: undefined },
   },
   setup(props, { slots }) {
     return () => {

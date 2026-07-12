@@ -33,6 +33,7 @@ const BOOL_ATTRS = [
   "enable-curvature",
   "enable-glare",
   "enable-noise",
+  "tint-text",
 ];
 const NUM_ATTRS = [
   "sweep-duration",
@@ -54,6 +55,8 @@ const STR_ATTRS = [
   "scanline-color",
   "glow-color",
   "edge-glow-color",
+  "text-color",
+  "sweep-color",
 ];
 // Accept either a keyword ("low"/"medium"/"high") or a number.
 const LEVEL_ATTRS = [

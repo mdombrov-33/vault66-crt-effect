@@ -57,6 +57,9 @@ const defaults = {
   enableNoise: false,
   noiseOpacity: 0.15,
   glitchChromatic: false,
+  tintText: false,
+  textColor: undefined as string | undefined,
+  sweepColor: undefined as string | undefined,
   fill: false,
 };
 
@@ -149,6 +152,9 @@ export function computeCrt(options: CRTOptions = {}): CRTComputed {
     enableNoise,
     noiseOpacity,
     glitchChromatic,
+    tintText,
+    textColor,
+    sweepColor,
     fill,
   } = config;
 
@@ -156,6 +162,9 @@ export function computeCrt(options: CRTOptions = {}): CRTComputed {
     theme !== "custom"
       ? (scanlineColorRGBMap[theme] ?? scanlineColorRGBMap.green)
       : extractRGB(scanlineColor);
+
+  // Phosphor tint for the content: explicit override, else the theme color.
+  const resolvedTextColor = textColor ?? `rgb(${scanlineColorRGB})`;
 
   const flickerIntensityValue = resolveIntensity(flickerIntensity, {
     low: 0.05,
@@ -182,6 +191,7 @@ export function computeCrt(options: CRTOptions = {}): CRTComputed {
     "crt-effect-wrapper",
     enableScanlines && "scanlines-on",
     enableSweep && (sweepStyle === "classic" ? "sweep-on" : "sweep-soft"),
+    enableSweep && sweepColor && "sweep-colored",
     enableEdgeGlow && "edge-glow-on",
     enableFlicker && "flicker-on",
   ]
@@ -212,6 +222,9 @@ export function computeCrt(options: CRTOptions = {}): CRTComputed {
     "--noise-opacity": noiseOpacity,
   };
 
+  if (tintText) wrapperStyle["--crt-text-color"] = resolvedTextColor;
+  if (sweepColor) wrapperStyle["--sweep-color"] = sweepColor;
+
   if (enableGlow) {
     // Outer glow via filter so it isn't clipped by the wrapper's overflow.
     wrapperStyle.filter =
@@ -231,6 +244,7 @@ export function computeCrt(options: CRTOptions = {}): CRTComputed {
     "crt-inner",
     enableGlitch && "glitch-on",
     enableGlitch && glitchChromatic && "chromatic-on",
+    tintText && "tint-text-on",
   ]
     .filter(Boolean)
     .join(" ");

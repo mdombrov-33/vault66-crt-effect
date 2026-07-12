@@ -46,6 +46,22 @@
   filter: blur(5px); /* More blur for softer appearance */
 }
 
+/** Colored sweep - a soft colored light that rolls over the screen instead of
+    the dark refresh bar. `screen` blend makes it tint/brighten the content it
+    passes (a hue), rather than painting an opaque stripe; extra blur softens the
+    band into a glow. Position/animation are inherited from the rules above. */
+.crt-effect-wrapper.sweep-colored.sweep-on::before,
+.crt-effect-wrapper.sweep-colored.sweep-soft::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--sweep-color, rgba(0, 255, 128, 0.5)) 50%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  filter: blur(8px);
+}
+
 /** Sweep Animation - moves the line from top to bottom of screen */
 @keyframes sweep-line {
   0% {
@@ -125,6 +141,13 @@
 .crt-inner {
   width: 100%;
   height: 100%;
+}
+
+/** Phosphor text tint - recolors inherited text to the theme/phosphor color and
+    adds a soft glow. Children with their own explicit `color` keep it. */
+.crt-inner.tint-text-on {
+  color: var(--crt-text-color, rgb(91, 179, 135));
+  text-shadow: 0 0 4px var(--crt-text-color, rgb(91, 179, 135));
 }
 
 /*! ANIMATION EFFECTS */
