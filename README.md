@@ -4,7 +4,7 @@
 ![npm downloads](https://img.shields.io/npm/dw/vault66-crt-effect?style=flat-square)
 ![npm total downloads](https://img.shields.io/npm/dt/vault66-crt-effect?style=flat-square)
 
-Authentic CRT effects for React — scanlines, sweep lines, glow, flicker, glitch, screen curvature, and more. Wrap any content for an instant vintage-monitor look.
+A CRT screen effect you wrap around any content: scanlines, sweep line, glow, flicker, glitch, screen curvature, glare, and static. Ships for **React**, **Vue**, and as a framework-agnostic **Web Component** (so it also works in Angular, plain HTML, Astro, Svelte, or anything else that runs in a browser).
 
 ---
 
@@ -12,8 +12,7 @@ Authentic CRT effects for React — scanlines, sweep lines, glow, flicker, glitc
 
 ## Live Demo
 
-Try the CRT effect live in this interactive [CodeSandbox demo](https://codesandbox.io/p/sandbox/brave-scott-lgp564).
-Experiment with scanlines, sweep, glow, flicker, and orientation in real time.
+Play with the effect in this interactive [CodeSandbox](https://codesandbox.io/p/sandbox/brave-scott-lgp564) — toggle scanlines, sweep, glow, flicker, and orientation in real time.
 
 ## Installation
 
@@ -24,55 +23,76 @@ yarn add vault66-crt-effect
 bun add vault66-crt-effect
 ```
 
-## Quick Start
+## Use it with your framework
 
-Use a preset for instant retro vibes:
+Same effect, same props everywhere — only the import and the syntax change. Presets get you a full look in one line; every individual prop is listed in [Props](#props).
+
+### React
 
 ```jsx
-import React from "react";
 import CRTEffect from "vault66-crt-effect";
-import "vault66-crt-effect/dist/vault66-crt-effect.css";
+import "vault66-crt-effect/style.css";
 
-function App() {
+export default function App() {
   return (
     <CRTEffect preset="fallout">
-      <div style={{ padding: "20px", fontSize: "24px" }}>
-        Welcome to the Wasteland!
-      </div>
+      <div style={{ padding: 20, fontSize: 24 }}>Welcome to the Wasteland!</div>
     </CRTEffect>
   );
 }
-
-export default App;
 ```
 
-Or customize everything manually:
+### Vue
 
-```jsx
-<CRTEffect
-  enabled={true}
-  sweepDuration={10}
-  sweepThickness={10}
-  scanlineOpacity={0.3}
-  theme="blue"
-  enableScanlines={true}
-  enableSweep={true}
-  enableGlow={true}
-  glowColor="rgba(0, 132, 255, 0.3)"
-  enableEdgeGlow={true}
-  edgeGlowColor="rgba(30, 128, 92, 0.9)"
-  edgeGlowSize={100}
-  enableFlicker={true}
->
-  <div>Your content here</div>
-</CRTEffect>
+```vue
+<script setup>
+import CRTEffect from "vault66-crt-effect/vue";
+import "vault66-crt-effect/style.css";
+</script>
+
+<template>
+  <CRTEffect preset="fallout">
+    <div style="padding: 20px; font-size: 24px">Welcome to the Wasteland!</div>
+  </CRTEffect>
+</template>
+```
+
+### Web Component
+
+Import once to register the `<crt-effect>` element, then use it anywhere — no CSS import needed, the component carries its own styles in a shadow root. Props become attributes: booleans are bare (`fill`), everything else is kebab-case (`sweep-duration="5"`).
+
+```html
+<script type="module">
+  import "vault66-crt-effect/element";
+</script>
+
+<crt-effect preset="fallout">
+  <div style="padding: 20px; font-size: 24px">Welcome to the Wasteland!</div>
+</crt-effect>
+```
+
+**Angular** uses the same element — just add `CUSTOM_ELEMENTS_SCHEMA` to your component/module so the compiler accepts the custom tag (otherwise you'll hit `NG8001`), and `import "vault66-crt-effect/element"` once:
+
+```ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "vault66-crt-effect/element";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: `<crt-effect preset="fallout">…</crt-effect>`,
+})
+export class AppComponent {}
 ```
 
 ## Props
 
+Every prop works the same across React, Vue, and the Web Component. Start from a `preset` and override whatever you want, or set props from scratch.
+
 | Prop                  | Type                                                                                                 | Default                     | Purpose                                                                                                                                           |
 | --------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `preset`              | `"fallout" \| "dos" \| "cyberpunk" \| "arcade" \| "commodore64" \| "apple2" \| "vt100" \| "minimal"` | `undefined`                 | Apply a complete preset configuration. Individual props can override preset values. See [Presets](#presets) section below                         |
+| `preset`              | `"fallout" \| "dos" \| "cyberpunk" \| "arcade" \| "commodore64" \| "apple2" \| "vt100" \| "minimal"` | `undefined`                 | Apply a complete preset configuration. Individual props can override preset values. See [Presets](#presets) below                                 |
 | `enabled`             | `boolean`                                                                                            | `true`                      | Enables or disables the entire CRT effect                                                                                                         |
 | `sweepDuration`       | `number`                                                                                             | `10`                        | Duration in seconds for the vertical sweep line animation                                                                                         |
 | `sweepThickness`      | `number`                                                                                             | `10`                        | Height (thickness in pixels) of the sweep line                                                                                                    |
@@ -105,8 +125,10 @@ Or customize everything manually:
 | `enableNoise`         | `boolean`                                                                                            | `false`                     | Enables an animated RF static/snow overlay generated from SVG fractal noise                                                                       |
 | `noiseOpacity`        | `number` (0 to 1)                                                                                    | `0.15`                      | Opacity of the static/snow overlay                                                                                                                |
 | `glitchChromatic`     | `boolean`                                                                                            | `false`                     | Adds animated red/cyan chromatic aberration to the glitch (requires `enableGlitch`)                                                               |
-| `fill`                | `boolean`                                                                                            | `false`                     | Stretches the effect to fill its parent's full width and height instead of sizing to its content. See [Full-Screen Layouts](#full-screen-layouts) |
-| `children`            | `React.ReactNode`                                                                                    | —                           | Content to render inside the CRT effect container                                                                                                 |
+| `fill`                | `boolean`                                                                                            | `false`                     | Stretches the effect to fill its parent's full width and height instead of sizing to its content. See [Full-screen layouts](#full-screen-layouts) |
+| `children`            | content                                                                                              | —                           | Content rendered inside the effect: React children, the Vue default slot, or slotted DOM in the Web Component                                     |
+
+In the Web Component, prop names are kebab-case attributes: `enableGlow` → `enable-glow`, `sweepDuration` → `sweep-duration="5"`, and booleans are set by presence (`fill`, `enable-flicker`).
 
 ## Presets
 
@@ -123,8 +145,6 @@ Eight ready-made monitor looks. Use one as-is, or as a starting point and overri
 | `vt100`       | Pale green DEC terminal — minimal scanlines, no sweep or glow                                 |
 | `minimal`     | Barely-there — subtle scanlines + light vignette only                                         |
 
-**Using Presets:**
-
 ```jsx
 // Use a preset as-is
 <CRTEffect preset="arcade">
@@ -139,45 +159,38 @@ Eight ready-made monitor looks. Use one as-is, or as a starting point and overri
 
 ## Customization
 
-Start with a preset and override specific values, or build from scratch with individual props. See the [Props](#props) table above for the complete list of available options.
-
-**Quick customization patterns:**
+Start from a preset and change a few values, or build the whole look from individual props. A few common patterns (React syntax; the props are identical in Vue and the Web Component):
 
 ```jsx
-// Start with a preset, tweak a few values
-<CRTEffect preset="fallout" sweepDuration={5} enableFlicker={false}>
-  <YourContent />
-</CRTEffect>
-
-// Custom scanline colors and orientation
+// Custom scanline color and orientation
 <CRTEffect theme="custom" scanlineColor="rgba(255, 100, 0, 0.3)" scanlineOrientation="vertical">
   <YourContent />
 </CRTEffect>
 
-// Fine-tune flicker and glitch with numeric precision
+// Fine-tune flicker and glitch with numbers
 <CRTEffect
   enableFlicker
-  flickerIntensity={0.05}  // Subtle brightness variance (0-1)
-  flickerSpeed={2}         // Slow flicker (seconds)
+  flickerIntensity={0.05}  // subtle brightness variance (0-1)
+  flickerSpeed={2}         // slow flicker (seconds)
   enableGlitch
-  glitchIntensity={0.3}    // Gentle shake (0-1)
-  glitchSpeed={1.5}        // Medium speed (seconds)
+  glitchIntensity={0.3}    // gentle shake (0-1)
+  glitchSpeed={1.5}        // medium speed (seconds)
 >
   <YourContent />
 </CRTEffect>
 
-// Or use preset strings for quick adjustments
+// Or use the "low" / "medium" / "high" shortcuts
 <CRTEffect enableFlicker flickerIntensity="low" enableGlitch glitchIntensity="high">
   <YourContent />
 </CRTEffect>
 ```
 
-## Full-Screen Layouts
+## Full-screen layouts
 
-By default the CRT wrapper **sizes to its content** — great for cards, panels, and inline blocks. When you instead want the effect to cover a whole region or the full viewport, add `fill` so the wrapper stretches to fill its parent (and its content stretches with it):
+By default the wrapper **sizes to its content** — good for cards, panels, and inline blocks. When you want the effect to cover a whole region or the full viewport, add `fill` so the wrapper stretches to its parent (and the content stretches with it):
 
 ```jsx
-// Parent needs a real height — here, the full viewport
+// The parent needs a real height — here, the full viewport
 <div style={{ width: "100vw", height: "100vh" }}>
   <CRTEffect preset="fallout" fill>
     <YourApp />
@@ -185,12 +198,77 @@ By default the CRT wrapper **sizes to its content** — great for cards, panels,
 </div>
 ```
 
-> `fill` fills the **parent**, so the parent must have a resolved height (`100vh`, a fixed `px`, or `100%` inherited down a chain).
+> `fill` fills the **parent**, so the parent must have a resolved height (`100vh`, a fixed `px`, or `100%` inherited down the chain).
 
-## Reduced Motion Support
+## Building your own integration
 
-If your system has “Reduce Motion” enabled, the CRT effect will automatically disable animations like sweep, flicker, and glitch to avoid causing discomfort. Static effects like scanlines and glow will remain visible. No extra setup needed.
+If your framework isn't React or Vue and you'd rather not use the Web Component, the core is exported separately. `computeCrt(options)` takes the same props and hands back everything needed to render the effect onto your own markup — no framework attached. It's exactly what the React and Vue wrappers are built on.
+
+It returns four things:
+
+```js
+const { enabled, wrapper, inner, overlays } = computeCrt({ preset: "fallout" });
+```
+
+- **`enabled`** — `false` when the effect is turned off; render your content untouched.
+- **`wrapper`** — `{ className, style }` for the outer element.
+- **`inner`** — `{ className, style }` for the element that holds your content.
+- **`overlays`** — an array of class names, one per overlay layer.
+
+The markup contract is: a **wrapper** element containing an **inner** element (your content goes in there), followed by one empty **overlay** div per entry in `overlays`:
+
+```html
+<div class="{wrapper.className}" style="{wrapper.style}">
+  <div class="{inner.className}" style="{inner.style}">…your content…</div>
+  <!-- one sibling div per overlay class -->
+  <div class="crt-vignette"></div>
+</div>
+```
+
+One catch when applying the styles by hand: the `style` bag contains both normal CSS properties (`filter`, `flexDirection`) and CSS custom properties (`--scanline-color-rgb`). Custom properties have to be set with `setProperty`, not by assigning to `el.style`. Here's a complete vanilla-DOM renderer that handles it:
+
+```js
+import { computeCrt } from "vault66-crt-effect/core";
+import "vault66-crt-effect/style.css";
+
+function applyStyle(el, style) {
+  for (const [key, value] of Object.entries(style)) {
+    if (key.startsWith("--")) el.style.setProperty(key, String(value));
+    else el.style[key] = value;
+  }
+}
+
+// Wrap any element in the CRT effect and return the new root element.
+function crt(content, options) {
+  const { enabled, wrapper, inner, overlays } = computeCrt(options);
+  if (!enabled) return content; // effect off — hand content back as-is
+
+  const root = document.createElement("div");
+  root.className = wrapper.className;
+  applyStyle(root, wrapper.style);
+
+  const innerEl = document.createElement("div");
+  innerEl.className = inner.className;
+  if (inner.style) applyStyle(innerEl, inner.style);
+  innerEl.append(content);
+  root.append(innerEl);
+
+  for (const cls of overlays) {
+    const layer = document.createElement("div");
+    layer.className = cls;
+    root.append(layer);
+  }
+  return root;
+}
+
+const screen = crt(myContent, { preset: "fallout" });
+document.body.append(screen);
+```
+
+## Reduced motion
+
+If the system has "Reduce Motion" enabled, animated layers (sweep, flicker, glitch, static) turn themselves off automatically, while layers like scanlines and glow stay visible. Nothing to configure.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT — see [LICENSE](LICENSE) for details.
