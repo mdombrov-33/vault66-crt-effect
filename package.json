@@ -3,38 +3,59 @@
   "version": "2.2.0",
   "type": "module",
   "license": "MIT",
-  "main": "dist/crt-effect.cjs.js",
-  "module": "dist/crt-effect.es.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+    },
+    "./vue": {
+      "import": { "types": "./dist/vue/index.d.ts", "default": "./dist/vue.js" },
+      "require": { "types": "./dist/vue/index.d.cts", "default": "./dist/vue.cjs" }
+    },
+    "./element": {
+      "import": { "types": "./dist/element/index.d.ts", "default": "./dist/element.js" },
+      "require": { "types": "./dist/element/index.d.cts", "default": "./dist/element.cjs" }
+    },
+    "./core": {
+      "import": { "types": "./dist/core/index.d.ts", "default": "./dist/core.js" },
+      "require": { "types": "./dist/core/index.d.cts", "default": "./dist/core.cjs" }
+    },
+    "./style.css": "./dist/vault66-crt-effect.css",
+    "./dist/vault66-crt-effect.css": "./dist/vault66-crt-effect.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/element.js",
+    "**/element.cjs"
+  ],
   "files": [
     "dist",
     "README.md"
   ],
-  "description": "A customizable CRT visual effect component for React",
+  "description": "A customizable CRT (retro monitor) visual effect for React, Vue, and Web Components",
   "keywords": [
     "react",
-    "animation",
-    "effects",
-    "ui",
-    "crt-effect",
+    "vue",
+    "angular",
+    "svelte",
+    "web-component",
+    "custom-element",
     "crt",
-    "retro-ui",
+    "crt-effect",
     "scanlines",
-    "glow",
-    "flicker",
-    "sweep-animation",
-    "vintage-ui",
     "terminal",
-    "console",
-    "glitch-effect",
-    "pixelated-ui",
-    "presets",
-    "fallout",
+    "retro",
+    "retro-ui",
+    "vintage",
+    "glitch",
+    "vaporwave",
+    "synthwave",
     "cyberpunk",
-    "arcade",
-    "commodore64",
-    "dos",
-    "vt100"
+    "fallout"
   ],
   "repository": {
     "type": "git",
@@ -42,26 +63,43 @@
   },
   "author": "Maksym Dombrov",
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
-    "dev": "vite",
-    "preview": "vite preview",
-    "dev:example": "vite --config example/vite.config.ts"
+    "build": "vite build && tsc -p tsconfig.build.json && node scripts/copy-cjs-types.mjs",
+    "dev:react": "vite examples/react",
+    "dev:vue": "vite examples/vue",
+    "dev:vanilla": "vite examples/vanilla",
+    "preview": "vite preview"
   },
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-vue": "^5.2.0",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vue": "^3.5.0"
   }
 }
