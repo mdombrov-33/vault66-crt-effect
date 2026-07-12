@@ -44,6 +44,8 @@ interface CRTEffectProps {
   curvatureIntensity?: number; // 0 to 1, strength of the curved-glass edge darkening
   glareIntensity?: number; // 0 to 1, brightness of the glass-reflection sheen
   noiseOpacity?: number; // 0 to 1, opacity of the static/snow overlay
+  //* Layout
+  fill?: boolean; // Stretch the wrapper to fill its parent's width & height (for full-screen / full-bleed layouts)
   //* Content
   children: React.ReactNode; // Content to render inside CRT effect
 }
@@ -88,6 +90,7 @@ const CRTEffect = (props: CRTEffectProps) => {
     enableNoise: false,
     noiseOpacity: 0.15,
     glitchChromatic: false,
+    fill: false,
   };
 
   const config = { ...defaults, ...presetConfig, ...userProps };
@@ -125,6 +128,7 @@ const CRTEffect = (props: CRTEffectProps) => {
     enableNoise,
     noiseOpacity,
     glitchChromatic,
+    fill,
   } = config;
   if (!enabled) {
     return <>{children}</>;
@@ -213,6 +217,16 @@ const CRTEffect = (props: CRTEffectProps) => {
         {
           position: "relative", // Enable positioning for pseudo-elements
           overflow: "hidden", // Clip sweep and scanlines to container
+          // When `fill` is set, stretch to the parent instead of sizing to content.
+          // The inner .crt-inner is already 100%/100%, so flex-column lets content fill the height too.
+          ...(fill
+            ? {
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column" as const,
+              }
+            : {}),
           // CSS custom properties for dynamic styling
           ["--sweep-duration"]: `${sweepDuration}s`,
           ["--sweep-thickness"]: `${sweepThickness}px`,
@@ -250,6 +264,13 @@ const CRTEffect = (props: CRTEffectProps) => {
         ]
           .filter(Boolean)
           .join(" ")}
+        // When `fill` is set, make the content layer a flex column so children
+        // that use `flex: 1` or `height: 100%` actually stretch to fill the frame.
+        style={
+          fill
+            ? ({ display: "flex", flexDirection: "column" } as React.CSSProperties)
+            : undefined
+        }
       >
         {children}
       </div>
