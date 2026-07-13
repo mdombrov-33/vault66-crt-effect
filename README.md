@@ -1,5 +1,7 @@
 # vault66-crt-effect
 
+[**Live playground and documentation →**](https://vault66.dev/)
+
 ![npm](https://img.shields.io/npm/v/vault66-crt-effect?style=flat-square)
 ![npm downloads](https://img.shields.io/npm/dw/vault66-crt-effect?style=flat-square)
 ![npm total downloads](https://img.shields.io/npm/dt/vault66-crt-effect?style=flat-square)
@@ -9,10 +11,6 @@ A CRT screen effect you wrap around any content: scanlines, sweep line, glow, fl
 ---
 
 ![CRT Effect Demo](./crt.gif)
-
-## Live Demo
-
-Play with the effect in this interactive [CodeSandbox](https://codesandbox.io/p/sandbox/brave-scott-lgp564) — toggle scanlines, sweep, glow, flicker, and orientation in real time.
 
 ## Installation
 
@@ -100,7 +98,7 @@ Every prop works the same across React, Vue, and the Web Component. Start from a
 | `scanlineOpacity`     | `number` (0 to 1)                                                                                    | `0.2`                       | Opacity of the scanlines                                                                                                                          |
 | `scanlineThickness`   | `number`                                                                                             | `2`                         | Thickness of each scanline in pixels                                                                                                              |
 | `scanlineGap`         | `number`                                                                                             | `3`                         | Gap between scanlines in pixels                                                                                                                   |
-| `scanlineColor`       | `string`                                                                                             | `"rgba(91, 179, 135, 0.2)"` | Custom RGBA/RGB scanline color (used only if `theme` is `"custom"`)                                                                               |
+| `scanlineColor`       | `string`                                                                                             | `"rgba(91, 179, 135, 0.2)"` | Custom hex, RGB, or RGBA scanline color (used only if `theme` is `"custom"`; alpha is controlled by `scanlineOpacity`)                            |
 | `enableScanlines`     | `boolean`                                                                                            | `true`                      | Shows or hides the scanlines overlay                                                                                                              |
 | `scanlineOrientation` | `"horizontal" \| "vertical"`                                                                         | `"horizontal"`              | Orientation of the scanlines: `"horizontal"` renders lines from top to bottom, `"vertical"` renders lines from left to right                      |
 | `enableSweep`         | `boolean`                                                                                            | `true`                      | Shows or hides the vertical sweep line animation                                                                                                  |
@@ -166,7 +164,7 @@ Start from a preset and change a few values, or build the whole look from indivi
 
 ```jsx
 // Custom scanline color and orientation
-<CRTEffect theme="custom" scanlineColor="rgba(255, 100, 0, 0.3)" scanlineOrientation="vertical">
+<CRTEffect theme="custom" scanlineColor="#ff6400" scanlineOpacity={0.3} scanlineOrientation="vertical">
   <YourContent />
 </CRTEffect>
 
