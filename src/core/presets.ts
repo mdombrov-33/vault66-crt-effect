@@ -37,6 +37,7 @@ export interface PresetConfig {
   glitchIntensity?: "low" | "medium" | "high" | number;
   glitchSpeed?: "low" | "medium" | "high" | number;
   vignetteIntensity?: number;
+  /** Custom hex, RGB, or RGBA scanline color used with the custom theme. */
   scanlineColor?: string;
   /** Recolor the wrapped content to a phosphor tint (derived from `theme`). */
   tintText?: boolean;

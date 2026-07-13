@@ -74,15 +74,34 @@ function defined<T extends object>(obj: T): Partial<T> {
   return out as Partial<T>;
 }
 
-//* Extract the "r, g, b" portion of an rgb/rgba color (alpha dropped).
+//* Extract RGB channels from hex or rgb/rgba colors. Alpha is intentionally
+//* dropped because scanlineOpacity controls the overlay's final opacity.
 function extractRGB(color: string): string {
-  const match = color.match(/rgba?\(\s*([\d\s.,]+)\)/);
-  if (!match) return "91, 179, 135"; // fallback RGB
-  return match[1]
-    .split(",")
-    .map((p) => p.trim())
-    .slice(0, 3)
-    .join(", ");
+  const value = color.trim();
+  const hexMatch = value.match(/^#([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/i);
+
+  if (hexMatch) {
+    const hex = hexMatch[1];
+    const rgbHex = hex.length <= 4
+      ? hex.slice(0, 3).split("").map((channel) => channel + channel)
+      : [hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)];
+    return rgbHex.map((channel) => Number.parseInt(channel, 16)).join(", ");
+  }
+
+  const rgbMatch = value.match(/^rgba?\((.*)\)$/i);
+  if (rgbMatch) {
+    const channels = rgbMatch[1]
+      .split("/")[0]
+      .trim()
+      .split(/[\s,]+/)
+      .filter(Boolean)
+      .slice(0, 3);
+    if (channels.length === 3 && channels.every((channel) => /^\d*\.?\d+%?$/.test(channel))) {
+      return channels.join(", ");
+    }
+  }
+
+  return "91, 179, 135";
 }
 
 const scanlineColorRGBMap: Record<string, string> = {
