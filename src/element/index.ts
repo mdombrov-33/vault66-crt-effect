@@ -1,4 +1,5 @@
-import { computeCrt, type CRTOptions, type CRTStyle } from "../core";
+import { computeCrt, type CRTStyle } from "../core/compute";
+import type { CRTOptions } from "../core/options";
 import styles from "../style.css?inline";
 
 /**

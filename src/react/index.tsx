@@ -1,5 +1,6 @@
 import type React from "react";
-import { computeCrt, type CRTOptions } from "../core";
+import { computeCrt } from "../core/compute";
+import type { CRTOptions } from "../core/options";
 
 export interface CRTEffectProps extends CRTOptions {
   /** Content to render inside the CRT effect. */

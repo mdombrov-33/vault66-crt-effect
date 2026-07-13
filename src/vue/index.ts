@@ -1,5 +1,6 @@
 import { defineComponent, h, type PropType } from "vue";
-import { computeCrt, type CRTOptions } from "../core";
+import { computeCrt } from "../core/compute";
+import type { CRTOptions } from "../core/options";
 
 type Level = "low" | "medium" | "high" | number;
 
