@@ -1,6 +1,6 @@
 {
   "name": "vault66-crt-effect",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "type": "module",
   "license": "MIT",
   "main": "./dist/index.cjs",
@@ -8,20 +8,44 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./vue": {
-      "import": { "types": "./dist/vue/index.d.ts", "default": "./dist/vue.js" },
-      "require": { "types": "./dist/vue/index.d.cts", "default": "./dist/vue.cjs" }
+      "import": {
+        "types": "./dist/vue/index.d.ts",
+        "default": "./dist/vue.js"
+      },
+      "require": {
+        "types": "./dist/vue/index.d.cts",
+        "default": "./dist/vue.cjs"
+      }
     },
     "./element": {
-      "import": { "types": "./dist/element/index.d.ts", "default": "./dist/element.js" },
-      "require": { "types": "./dist/element/index.d.cts", "default": "./dist/element.cjs" }
+      "import": {
+        "types": "./dist/element/index.d.ts",
+        "default": "./dist/element.js"
+      },
+      "require": {
+        "types": "./dist/element/index.d.cts",
+        "default": "./dist/element.cjs"
+      }
     },
     "./core": {
-      "import": { "types": "./dist/core/index.d.ts", "default": "./dist/core.js" },
-      "require": { "types": "./dist/core/index.d.cts", "default": "./dist/core.cjs" }
+      "import": {
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core.js"
+      },
+      "require": {
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core.cjs"
+      }
     },
     "./style.css": "./dist/vault66-crt-effect.css",
     "./dist/vault66-crt-effect.css": "./dist/vault66-crt-effect.css",
