@@ -63,7 +63,8 @@
   },
   "author": "Maksym Dombrov",
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json && node scripts/copy-cjs-types.mjs",
+    "build": "vite build && tsc -p tsconfig.build.json && node scripts/prepare-types.mjs",
+    "test:types": "npm run build && node scripts/test-types.mjs",
     "prepublishOnly": "npm run build",
     "dev:react": "vite examples/react",
     "dev:vue": "vite examples/vue",

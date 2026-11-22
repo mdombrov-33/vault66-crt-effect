@@ -1,0 +1,28 @@
+name: Check package types
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  types:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        typescript: ["5.8.3", "5.9.3", "7.0.2"]
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install consumer compiler
+        run: npm install --prefix "$RUNNER_TEMP/consumer-typescript" --ignore-scripts --no-audit --no-fund typescript@${{ matrix.typescript }}
+      - name: Check packaged declarations
+        run: node scripts/test-types.mjs "$RUNNER_TEMP/consumer-typescript/node_modules/typescript/bin/tsc"
